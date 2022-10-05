@@ -96,9 +96,13 @@ class Work(models.Model):
     contracts48 = models.ImageField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts49 = models.ImageField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts50 = models.ImageField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
 
 
 class Survey(models.Model):
     survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
     other = models.TextField(blank=True, null=True, verbose_name=('Otra'))
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
