@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Profile
 
 class UserRegisterForm(UserCreationForm):
 	email = forms.EmailField()
@@ -19,3 +19,12 @@ class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
 		fields = ['content']
+
+
+class ProfileForm(forms.ModelForm):
+	model = Profile
+	fields = ['image',
+			'genders',
+			'institute',
+			'degree_of_studies',
+			'birthday']

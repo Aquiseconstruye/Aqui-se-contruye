@@ -7,4 +7,9 @@ class WorkAdmin(admin.ModelAdmin):
     ordering = ["created_at"]
 
 
+class TrafficLightAdmin(admin.ModelAdmin):
+    list_display = ('color',)
+    ordering = ["color"]
+
 admin.site.register(Work, WorkAdmin)
+admin.site.register(TrafficLight,TrafficLightAdmin)

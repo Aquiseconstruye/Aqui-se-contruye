@@ -1,6 +1,12 @@
 from django.db import models
 
 # Create your models here.
+class TrafficLight(models.Model):
+    color = models.CharField(max_length=300)
+    trafficlight = models.ImageField(upload_to='trafficlight', blank=True, null=True, verbose_name=('semaforo'))
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
 
 TRAFFIC_LIGHT_CHOICES = ((1,'Rojo'),
                     (2,'Amarillo'),
@@ -15,6 +21,9 @@ SURVEY_CHOICES = ((1,'Afecta mi translado'),
 class Work(models.Model):
     name = models.CharField(max_length=300, verbose_name=('Nombre de la obra'))
     slug = models.CharField(max_length=100, blank=True, null=True, unique=True, db_index=True)
+    address = models.CharField(max_length=500, null=True, default='test')
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
     image = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
     image1 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
     image2 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
@@ -38,6 +47,7 @@ class Work(models.Model):
     image20 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
     price = models.FloatField(blank=True, null=True, verbose_name=('precio'))
     traffic_light = models.IntegerField(default=2, choices=TRAFFIC_LIGHT_CHOICES, verbose_name=('semaforo'))
+    img_traffic_light = models.ForeignKey(TrafficLight, related_name="semaforo", blank=True, null=True, on_delete=models.CASCADE)
     official = models.CharField(max_length=200, verbose_name=('funcionario'))
     dependence = models.CharField(max_length=500, verbose_name=('dependencia'))
     constructor = models.CharField(max_length=200, verbose_name=('constructoras'))
@@ -104,5 +114,11 @@ class Work(models.Model):
 class Survey(models.Model):
     survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
     other = models.TextField(blank=True, null=True, verbose_name=('Otra'))
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+
+class Newsletter(models.Model):
+    newsletter = models.FileField(blank=True, null=True, upload_to='newsletter', verbose_name='fuentes')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)

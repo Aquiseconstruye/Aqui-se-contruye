@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .forms import UserRegisterForm, PostForm
+from .forms import UserRegisterForm, PostForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.views import View
 
 def feed(request):
 	posts = Post.objects.all()
@@ -68,3 +70,24 @@ def unfollow(request, username):
 	rel.delete()
 	messages.success(request, f'Ya no sigues a {username}')
 	return redirect('feed')
+
+class LogoutView(View):
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        next = request.GET.get('next', '/')
+        return redirect(next)
+
+
+def infoperfil(request):
+	if request.method == 'POST':
+		form = ProfileForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request, f'Informcion de perfil actualizda')
+			return redirect('/')
+	else:
+		form = ProfileForm()
+
+	context = { 'form' : form }
+	return render(request, 'form_perfil.html', context)
