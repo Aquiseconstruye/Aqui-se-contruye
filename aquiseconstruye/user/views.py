@@ -20,12 +20,27 @@ def register(request):
 			form.save()
 			username = form.cleaned_data['username']
 			messages.success(request, f'Usuario {username} creado')
-			return redirect('feed')
+			return redirect('infoperfil',{username})
 	else:
 		form = UserRegisterForm()
 
 	context = { 'form' : form }
 	return render(request, 'register.html', context)
+
+@login_required
+def infoperfil(request, username=None):
+	if request.method == 'POST':
+		form = ProfileForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request, f'Informcion de perfil actualizda')
+			return redirect('/')
+	else:
+		form = ProfileForm()
+
+	context = { 'form' : form }
+	return render(request, 'form_perfil.html', context)
+
 
 @login_required
 def post(request):
@@ -79,15 +94,3 @@ class LogoutView(View):
         return redirect(next)
 
 
-def infoperfil(request):
-	if request.method == 'POST':
-		form = ProfileForm(request.POST)
-		if form.is_valid():
-			form.save()
-			messages.success(request, f'Informcion de perfil actualizda')
-			return redirect('/')
-	else:
-		form = ProfileForm()
-
-	context = { 'form' : form }
-	return render(request, 'form_perfil.html', context)

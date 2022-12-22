@@ -29,8 +29,8 @@ class HomeView(ListView):
             print(work.name)
             html_amarillo="""
                 <h1>"""+work.name+"""</h1><br>
-                <center><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><p>"""+str(work.price)+"""</p></center>
-                <center><img src=https://i.ibb.co/KqBLd1D/amarillo.png alt="logo" width=50 height=50 ></center>
+                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><span>$"""+str(work.price)+"""0</span></div>
+                <center><img src=https://i.ibb.co/KqBLd1D/amarillo.png alt="logo" width=50 height=50 ></div>
                 
 
                 
@@ -38,16 +38,20 @@ class HomeView(ListView):
 
             html_rojo="""
                 <h1>"""+work.name+"""</h1><br>
-                <center><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><p>"""+str(work.price)+"""</p></center>
-                <center><img src=https://i.ibb.co/68d3zT5/Rojo.png alt="logo" width=50 height=50 ></center>
+                
+                <img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 >
+                <p>$"""+str(work.price)+"""0</p>
+                
+                <div><img src=https://i.ibb.co/68d3zT5/Rojo.png alt="logo" width=0 height=50 ></div>
+                <div><img src=https://i.ibb.co/M7069CM/verde.png alt="logo" width=50 height=50 ></div>
                 
                 
             """
 
             html_verde="""
                 <h1>"""+work.name+"""</h1><br>
-                <center><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><p>"""+str(work.price)+"""</p></center>
-                <center><img src=https://i.ibb.co/M7069CM/verde.png alt="logo" width=50 height=50 ></center>
+                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><p>"""+str(work.price)+"""</p></div>
+                <div><img src=https://i.ibb.co/M7069CM/verde.png alt="logo" width=50 height=50 ></div>
 
                 
             """

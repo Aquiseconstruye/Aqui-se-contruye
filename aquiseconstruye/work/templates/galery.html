@@ -1,0 +1,152 @@
+<style>
+
+
+a {
+  text-decoration: none;
+}
+
+/* Galeria */
+.galeria {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 10vh auto;
+  margin: 2em auto;
+  max-width: 100%;
+  width: 600px;
+}
+
+.galeria h2 {
+  font-size: 30px;
+  grid-column: 1/4;
+}
+
+.galeria a {
+  cursor: zoom-in;
+  transition: filter 0.2s ease-in-out;
+}
+
+.galeria a:hover {
+  filter: brightness(90%);
+}
+
+.galeria .item strong {
+  display: block;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.galeria img {
+  border-radius: 1em;
+  max-width: 100%;
+}
+
+/* Lightbox */
+
+.lightbox {
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: fixed;
+  z-index: 1000;
+}
+
+.lightbox:target {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.lightbox img {
+  border-radius: 1em;
+  display: block;
+  margin: auto;
+  max-height: 80vh;
+  max-width: 90vh;
+}
+
+.lightbox .fechar {
+  color: #fff;
+  font-size: 4em;
+  font-weight: bold;
+  height: 1em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 1em;
+  z-index: 1001;
+}
+
+.lightbox p {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+}
+</style>
+
+{% block content %}
+<main>
+    <section class="galeria">
+      <h2>Gallery</h2>
+
+      {%for work in works %}
+      <div class="item">
+        <a href="#imagem1">
+            {%if work.image%}
+            <img class="foto" src='{{work.image.url}}'>
+            {%endif%}
+        </a>
+        
+      </div>
+      <div class="item">
+        <a href="#imagem2">
+          <img src="https://source.unsplash.com/Yr4n8O_3UPc/500x500" alt="">
+        </a>
+        
+      </div>
+      <div class="item">
+        <a href="#imagem3">
+          <img src="https://source.unsplash.com/_-SwhhV7tSo/500x500" alt="">
+        </a>
+        {%endfor%}
+      </div>
+    </section>
+  
+    <!-- Lightboxes em separado -->
+    <div class="lightboxes">
+      <div class="lightbox" id="imagem1">
+        <a href="#" class="fechar">&times;</a>
+        <div class="conteudo">
+          <img src="https://source.unsplash.com/fdlZBWIP0aM/900x900" alt="">
+          <p>Foto 1</p>
+        </div>
+      </div>
+      <div class="lightbox" id="imagem2">
+        <a href="#" class="fechar">&times;</a>
+        <div class="conteudo">
+          <img src="https://source.unsplash.com/Yr4n8O_3UPc/900x900" alt="">
+          <p>Foto 2</p>
+        </div>
+      </div>
+      <div class="lightbox" id="imagem3">
+        <a href="#" class="fechar">&times;</a>
+        <div class="conteudo">
+          <img src="https://source.unsplash.com/_-SwhhV7tSo/900x900" alt="">
+          <p>Foto 3</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    Galeria propiedad intelectual de aqui se construye
+  </footer>
+
+
+{% endblock %}
