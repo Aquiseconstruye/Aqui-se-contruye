@@ -1,0 +1,106 @@
+<style>
+
+
+.card
+{
+  background-color: #fafafa;
+  height: 230px;
+  width: 80%;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: 3px solid black;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+/* CARDS CONTENT SECTION */
+#containText
+{
+  position: absolute;
+  width: 76%;
+  left: 250px;
+  top: 30px;
+  text-align: justify;
+  font-family: 'Covered By Your Grace', cursive;
+}
+
+#containText h3{
+    font-size: 40px;
+}
+
+#containText p
+{
+  position: absolute;
+  top: 50px;
+  font-size: 25px;
+  color: #202020;
+}
+
+.face
+{
+  position: relative;
+  height: 200px;
+  width: 200px;
+  top: 10px;
+  left: 10px;
+}
+
+.card-image{
+    height: 200px;
+    width: 200px;
+}
+
+
+.extra
+{
+  position: relative;
+  width: 90%;
+  top: -80px;
+  margin: auto;
+  color: #606060;
+  font-weight: light;
+  text-align: justify;
+  left: 200px;
+
+}
+
+.arow{
+    position: relative;
+    width: 10% ;
+    top: -20%;
+    left: 70%;
+}
+
+</style>
+
+
+<div class="container text-center">
+    
+    <div class="row">
+        <ul class="cards">
+            <li>
+            <div class="card">
+                    <div class="face">
+                        {% if obras.image%}
+                            <img src='{{obras.image.url}}' class="card-image">
+                        {%endif%}
+                    </div>
+                    <div id="containText">
+                        <h3>{{obras.name}}</h3><br>
+                        <p>{{obras.address}}</p>
+                        <br>
+                    </div>
+                    <div class="extra">
+                    <p><strong>Precio</strong> ${{obras.price}}.0</p>
+                    <a href="{% url 'obra:obra' slug=obras.slug %}"><img class="arow" src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png" ></a>
+                        
+                    </div>
+            </div>
+                
+            </li>
+        </ul>
+    </div>
+
+</div>

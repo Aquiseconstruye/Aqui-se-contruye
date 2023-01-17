@@ -28,37 +28,48 @@ class HomeView(ListView):
         for work in work_obj:
             print(work.name)
             html_amarillo="""
-                <h1>"""+work.name+"""</h1><br>
-                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><span>$"""+str(work.price)+"""0</span></div>
-                <center><img src=https://i.ibb.co/KqBLd1D/amarillo.png alt="logo" width=50 height=50 ></div>
+                <center><h2>"""+work.name+"""</h2></center>
+                <br>
+                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=60 height=70 ></span>
+                <center><h3 style="margin-top:-50px">$"""+str(work.price)+"""0</h3></center></span></div>
+                <br>
+                <br>
+                <br>
+                <img src=https://i.ibb.co/cLpxYmw/Amarillo.png alt="logo" width=50 height=50 ></div>
                 
 
                 
             """
 
             html_rojo="""
-                <h1>"""+work.name+"""</h1><br>
-                
-                <img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 >
-                <p>$"""+str(work.price)+"""0</p>
-                
-                <div><img src=https://i.ibb.co/68d3zT5/Rojo.png alt="logo" width=0 height=50 ></div>
-                <div><img src=https://i.ibb.co/M7069CM/verde.png alt="logo" width=50 height=50 ></div>
+                <center><h2>"""+work.name+"""</h2></center>
+                <br>
+                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=60 height=70 ></span>
+                <center><h3 style="margin-top:-50px">$"""+str(work.price)+"""0</h3></center></span></div>
+                <br>
+                <br>
+                <br>
+                <div><img src=https://i.ibb.co/XxBXwnL/rojo.png alt="logo" width=50 height=50 ></div>
                 
                 
             """
 
             html_verde="""
-                <h1>"""+work.name+"""</h1><br>
-                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=50 height=50 ><p>"""+str(work.price)+"""</p></div>
-                <div><img src=https://i.ibb.co/M7069CM/verde.png alt="logo" width=50 height=50 ></div>
+                <center><h2>"""+work.name+"""</h2></center>
+                <br>
+                <div><img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=60 height=70 ></span>
+                <center><h3 style="margin-top:-50px">$"""+str(work.price)+"""0</h3></center></span></div>
+                <br>
+                <br>
+                <br>
+                <div><img src=https://i.ibb.co/6HNLSRb/Sin-ti-tulo-2.png alt="logo" width=50 height=50 ></div>
 
                 
             """
            
-            popup_amarillo = folium.Popup(folium.Html(html_amarillo, script=True), max_width=500)
-            popup_rojo = folium.Popup(folium.Html(html_rojo, script=True), max_width=500)
-            popup_verde = folium.Popup(folium.Html(html_verde, script=True), max_width=500)
+            popup_amarillo = folium.Popup(folium.Html(html_amarillo, script=True), max_width=450,min_width=450)
+            popup_rojo = folium.Popup(folium.Html(html_rojo, script=True), max_width=450,min_width=450)
+            popup_verde = folium.Popup(folium.Html(html_verde, script=True), max_width=450,min_width=450)
 
             latitude = work.latitude
             longitude = work.longitude
@@ -78,6 +89,18 @@ class HomeView(ListView):
                             popup=popup_verde,
                           icon=folium.Icon(color='green', icon='check', prefix='fa')
                           ).add_to(mexico)
+                
+
+            
+    
+  
+
+        mexico = mexico._repr_html_()
+        context = {
+            'map': mexico,
+        }
+
+        return context
                 
 
             

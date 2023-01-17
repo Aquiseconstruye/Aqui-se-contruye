@@ -5,16 +5,20 @@ import locale
 from django.views import View
 from django.views import generic
 from django.views.generic.detail import DetailView
+from .filters import ObrasFilter 
+
 # Create your views here.
 class ObrasView(View):
     @property
-    def regidurias(self):
+    def obras(self):
         return self.kwargs["obras"]
 
     def get(self, request, *args, **kwargs):
         obras =  Work.objects.all()
         print(obras)
-        return render(request, 'obras.html')
+        obras_filter = ObrasFilter(request.GET, queryset=obras)
+        return render(request, 'obras.html', {'filter': obras_filter})
+
 
 
 class ObraDetailView(DetailView):
