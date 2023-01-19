@@ -13,147 +13,22 @@
 
 {%block content%}
 <style>
-.main_grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-column-gap: 1em;
-  margin:30px;
-}
-
-
-.foto {
-  /*Display*/
-  width:100%;
-  height:auto;
-  padding: 1px;
-  clip-path: circle(50% at center);
-}
-
-.left_side{
-  font-family: 'Montserrat';
-  padding: 1em;
-  background-color: black;
-  border-style: solid;
-  border-color: #d9e022;
-  color: #d91c5c;
-}
-
-.left_side>hr{
-  color: white
-}
-
-.left_side>ul {
-  font-weight: 300;
-}
-
-.right_side{
-  font-family: 'Montserrat';
-  padding:1em;
-  grid-template-rows: repeat (4 auto) 1fr;
-}
-
-.right_side>p{
-  text-align: justify;
-  font-weight: 300;
-}
-
-.right_grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-row-gap: 0.5em;
-  grid-column-gap: 1em;
-}
-
-.right_grid >h2{
-  grid-column: span 2;
-}
-
-/*Grid trabajo*/
-
-.trabajo {
-  display: grid;
-  grid-column: span 2;
-  grid-template-columns: subgrid;
-}
-
-.posicion {
-  text-align: right;
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-weight: 600;
-  font-size: 0.8em;
-  font-weight: ;
-}
-
-.empresa {
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-weight: 600;
-  font-size: 0.8em;
-}
-
-.fecha {
-  text-align: right;
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-size: 0.8em;
-  font-weight: 300;
-}
-
-.descripcion {
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-size: 0.8em;
-  text-align: justify;
-  font-weight: 300;
-}
-
-/* Grid Educación */
-.estudio {
-  display: grid;
-  grid-column: span 2;
-  grid-template-columns: subgrid;
-}
-
-.curso {
-  text-align: right;
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-weight: 600;
-  font-size: 0.8em;
-}
-
-.centro_ed {
-  margin-top: 0px;
-  margin-bottom: 0.1em;
-  font-weight: 600;
-  font-size: 0.8em;
-}
 </style>
 
-
-  <div class="main_grid">
-    <div class="left_side">
-      {%if obra.image%}
-      <img class="foto" src='{{obra.image.url}}'>
-
-      {%endif%}
-      
-    
-        </div>
-        
-        </div>
+<div class="container" style="background-color: #fff;">
+  <br>
+  <br>
+  <br>
+  {% include 'galery.html'%}
+  <br>
+  <br>
+  <br>
   
+</div>
 
-  
-    </div>
-  
-  </div>
 
 {%endblock%}
 
 {% block scripts %}
-<script type="text/javascript">
-  $("a[target!='_system'][href$='.pdf']").attr("target", "_system");
-</script>
+
 {% endblock %}

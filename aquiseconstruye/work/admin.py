@@ -11,5 +11,10 @@ class TrafficLightAdmin(admin.ModelAdmin):
     list_display = ('color',)
     ordering = ["color"]
 
+
+
+
 admin.site.register(Work, WorkAdmin)
+admin.site.register(Survey)
+admin.site.register(Newsletter)
 admin.site.register(TrafficLight,TrafficLightAdmin)

@@ -1,152 +1,547 @@
 <style>
 
+.container-gallery{
+			width: 1000px;
+			margin:0 auto;
+      background-color: #fff;
+		}
 
-a {
-  text-decoration: none;
+		.gallery{
+	width: 100%;
+	overflow: hidden;
+		}
+
+
+.list-img{
+	display: flex;
+	overflow: hidden;
+	width: 100%;
+	padding-top: 20px;
+}
+.list-img img{
+width: 200px;
+height: 100px;
+padding-right: 20px;
+cursor: pointer;
+
+}
+.main-img{
+	display: flex;
+position: relative;
+
+	    width: 100%;
+
+}
+.main-img img{
+	width: 100%;
+	height: 545px;
+
+	}
+.col-main{
+		position: relative;
+		width: 100%;
+	}
+	.main-img .item-img{
+		    min-width: 100%;
+	}
+
+
+	img.item-list{
+		opacity: 0.3;
+	}
+.item-list.active{
+opacity: 1;
+}
+.nutslide{
+	    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
 }
 
-/* Galeria */
-.galeria {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 10vh auto;
-  margin: 2em auto;
-  max-width: 100%;
-  width: 600px;
+
+.next{
+	    right: 15px;
+    position: absolute;
+      font-size: 28px;
+      color: #fff;
+          width: 35px;
+    height: 36px;
+    background: #373737;
+    padding-left: 8px;
+    padding-right: 10px;
+    border-radius: 4px;
+    padding-top: 1px;
+    cursor: pointer;
 }
 
-.galeria h2 {
-  font-size: 30px;
-  grid-column: 1/4;
+.prev {
+    left: 15px;
+    position: absolute;
+    font-size: 28px;
+    color: #fff;
+        width: 35px;
+    height: 36px;
+    background: #373737;
+    padding-left: 8px;
+    padding-right: 10px;
+    border-radius: 4px;
+    padding-top: 1px;
+    cursor: pointer;
+}
+.main{
+	position: relative;
+	width: 100%;
+}
+.img-thumbnail{
+	display: flex;
+position: relative;
+
+	    width: 100%;
+
 }
 
-.galeria a {
-  cursor: zoom-in;
-  transition: filter 0.2s ease-in-out;
-}
-
-.galeria a:hover {
-  filter: brightness(90%);
-}
-
-.galeria .item strong {
-  display: block;
-  font-size: 1.5em;
-  text-align: center;
-}
-
-.galeria img {
-  border-radius: 1em;
-  max-width: 100%;
-}
-
-/* Lightbox */
-
-.lightbox {
-  background: rgba(0, 0, 0, 0.8);
-  display: none;
-  position: fixed;
-  z-index: 1000;
-}
-
-.lightbox:target {
-  align-items: center;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  right: 0;
-  top: 0;
-}
-
-.lightbox img {
-  border-radius: 1em;
-  display: block;
-  margin: auto;
-  max-height: 80vh;
-  max-width: 90vh;
-}
-
-.lightbox .fechar {
-  color: #fff;
-  font-size: 4em;
-  font-weight: bold;
-  height: 1em;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 1em;
-  z-index: 1001;
-}
-
-.lightbox p {
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-}
-
-footer {
-  text-align: center;
-}
 </style>
 
 {% block content %}
-<main>
-    <section class="galeria">
-      <h2>Gallery</h2>
 
-      {%for work in works %}
-      <div class="item">
-        <a href="#imagem1">
-            {%if work.image%}
-            <img class="foto" src='{{work.image.url}}'>
+
+<div class="container-gallery">
+	
+  <div class="gallery">
+    
+    <div class="main">
+
+    <div class="main-img">
+      
+      <div class="item-img active" data-slide="1"><a href="#">
+            {% if obra.image%}
+                <img src='{{obra.image.url}}'>
             {%endif%}
-        </a>
-        
-      </div>
-      <div class="item">
-        <a href="#imagem2">
-          <img src="https://source.unsplash.com/Yr4n8O_3UPc/500x500" alt="">
-        </a>
-        
-      </div>
-      <div class="item">
-        <a href="#imagem3">
-          <img src="https://source.unsplash.com/_-SwhhV7tSo/500x500" alt="">
-        </a>
-        {%endfor%}
-      </div>
-    </section>
+      </a></div>
+      <div class="item-img" data-slide="2"><a href="#">
+            {% if obra.image1%}
+                <img src='{{obra.image1.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="3"><a href="#">
+              {% if obra.image2%}
+                <img src='{{obra.image2.url}}'>
+              {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="4"><a href="#">
+            {% if obra.image3%}
+                <img src='{{obra.image3.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="5"><a href="#">
+            {% if obra.image4%}
+                <img src='{{obra.image4.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="6"><a href="#">
+            {% if obra.image5%}
+                <img src='{{obra.image5.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="7"><a href="#">
+            {% if obra.image6%}
+                <img src='{{obra.image6.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="8"><a href="#">
+            {% if obra.image7%}
+                <img src='{{obra.image7.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img active" data-slide="9"><a href="#">
+            {% if obra.image8%}
+                <img src='{{obra.image8.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="10"><a href="#">
+            {% if obra.image9%}
+                <img src='{{obra.image9.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="11"><a href="#">
+              {% if obra.image10%}
+                <img src='{{obra.image10.url}}'>
+              {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="12"><a href="#">
+          {% if obra.image11%}
+              <img src='{{obra.image11.url}}'>
+          {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="13"><a href="#">
+            {% if obra.image12%}
+                <img src='{{obra.image12.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="14"><a href="#">
+            {% if obra.image13%}
+                <img src='{{obra.image13.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="15"><a href="#">
+            {% if obra.image14%}
+                <img src='{{obra.image14.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="16"><a href="#">
+           {% if obra.image15%}
+              <img src='{{obra.image15.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="17"><a href="#">
+        {% if obra.image16%}
+            <img src='{{obra.image16.url}}'>
+        {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="18"><a href="#">
+            {% if obra.image17%}
+                <img src='{{obra.image17.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="19"><a href="#">
+            {% if obra.image18%}
+                <img src='{{obra.image18.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="20"><a href="#">
+            {% if obra.image19%}
+                <img src='{{obra.image19.url}}'>
+            {%endif%}
+      </a></div>
+      <div class="item-img" data-slide="21"><a href="#">
+            {% if obra.image20%}
+                <img src='{{obra.image20.url}}'>
+            {%endif%}
+      </a></div>
+
+
+    </div><!--main-img-->
+
+
+    <div class="nutslide">
+         <span class="prev"><i class="fas fa-chevron-left"></i></span>
+         <span class="next"><i class="fas fa-chevron-right"></i></span>
+         </div>
+
+      </div><!--cot-1-->
   
-    <!-- Lightboxes em separado -->
-    <div class="lightboxes">
-      <div class="lightbox" id="imagem1">
-        <a href="#" class="fechar">&times;</a>
-        <div class="conteudo">
-          <img src="https://source.unsplash.com/fdlZBWIP0aM/900x900" alt="">
-          <p>Foto 1</p>
-        </div>
-      </div>
-      <div class="lightbox" id="imagem2">
-        <a href="#" class="fechar">&times;</a>
-        <div class="conteudo">
-          <img src="https://source.unsplash.com/Yr4n8O_3UPc/900x900" alt="">
-          <p>Foto 2</p>
-        </div>
-      </div>
-      <div class="lightbox" id="imagem3">
-        <a href="#" class="fechar">&times;</a>
-        <div class="conteudo">
-          <img src="https://source.unsplash.com/_-SwhhV7tSo/900x900" alt="">
-          <p>Foto 3</p>
-        </div>
-      </div>
-    </div>
-  </main>
-  <footer>
-    Galeria propiedad intelectual de aqui se construye
-  </footer>
+
+    
+
+  
+
+    <div class="list-img">
+      <div class="img-thumbnail">
+        {% if obra.image%}
+            <img src='{{obra.image.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image1%}
+            <img src='{{obra.image1.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image2%}
+            <img src='{{obra.image2.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image3%}
+            <img src='{{obra.image3.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image4%}
+            <img src='{{obra.image4.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image5%}
+            <img src='{{obra.image5.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image6%}
+            <img src='{{obra.image6.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image7%}
+            <img src='{{obra.image7.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image8%}
+            <img src='{{obra.image8.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image9%}
+            <img src='{{obra.image9.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image10%}
+            <img src='{{obra.image10.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image11%}
+            <img src='{{obra.image11.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image12%}
+            <img src='{{obra.image12.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image13%}
+            <img src='{{obra.image13.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image14%}
+            <img src='{{obra.image14.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image15%}
+            <img src='{{obra.image15.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image16%}
+            <img src='{{obra.image16.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image17%}
+            <img src='{{obra.image17.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image18%}
+            <img src='{{obra.image18.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image19%}
+            <img src='{{obra.image19.url}}' class="item-list">
+        {%endif%}
+        {% if obra.image20%}
+            <img src='{{obra.image20.url}}' class="item-list">
+        {%endif%}
+      </div><!--img-thumbnail-->
+    </div><!--list-img-->
+  </div><!--gallery-->
+</div>
 
 
 {% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+$(function(){
+
+
+		
+$('.item-list').click(function(){
+
+
+  $('.item-img').removeClass('active');	
+
+  $('.item-list').removeClass('active');
+
+  $(this).addClass('active');
+
+       
+
+  var index = $(this).index() + 1;
+
+  var index2 = $('.item-img:nth-child('+index+')').addClass('active');
+  
+
+  $('.main-img').animate({
+
+
+    left: 0 - index2.position().left
+
+  },500);
+
+
+  //Slide thumbnails
+  
+  
+
+  var test = $('.item-img.active').index()+1;
+
+
+  var a = $('.item-list:nth-child('+test+')');
+
+
+  $('.img-thumbnail').animate({
+
+
+  left: 0 - (a.position().left/2)
+
+  },300);
+
+
+
+
+  });
+
+
+
+
+  //click prev
+
+  function next(){
+
+
+                            var sau=$('.active').next();
+
+                            
+                            $('.item-img').removeClass('active');
+                            $('.item-list').removeClass('active');
+                              
+
+                            sau.addClass('active');
+
+                            
+                              
+                            if(sau.length==0){
+                              $('.main-img').animate({
+
+
+                              left: 0 - $('.item-img:first-child').position().left
+
+                              },500);
+
+                              $('.item-img:first-child').addClass('active');
+                              $('.item-list:first-child').addClass('active');
+
+                            }
+
+
+                            else{
+                              var hay = $('.item-img.active').attr('data-slide');
+
+
+                            var index5 = $('.item-img:nth-child('+hay+')').addClass('active');
+                            
+                              
+
+  $('.main-img').animate({
+
+
+                              left: 0 - index5.position().left
+
+                              },500);
+                            }
+
+    }
+
+
+
+
+  //Click prev
+
+  function prev(){
+
+
+        var sau=$('.active').prev();
+
+        
+        $('.item-img').removeClass('active');
+        $('.item-list').removeClass('active');
+        
+        
+
+
+        sau.addClass('active');
+
+        
+          
+        if(sau.length==0){
+          $('.main-img').animate({
+
+
+            left: 0 - $('.item-img:last-child').position().left
+
+            },500);
+
+            $('.item-img:last-child').addClass('active');
+            $('.item-list:last-child').addClass('active');
+
+        }
+
+        var hay = $('.item-img.active').attr('data-slide');
+
+        var index5 = $('.item-img:nth-child('+hay+')').addClass('active');
+
+        $('.main-img').animate({
+
+
+            left: 0 - index5.position().left
+
+          },500);
+
+  }
+
+
+
+
+//auto run slide
+action =setInterval(function(){ 
+
+$('.next').trigger('click');
+
+
+}, 2500);
+
+//hover stop auto run slide
+
+$('.gallery').mouseover(function(){
+clearTimeout(action);
+
+});
+
+//rê chuột khuột khỏi slider sẽ tự động chạy trở lại
+
+$('.gallery').mouseout(function(){
+action =setInterval(function(){ 
+
+$('.next').trigger('click');
+
+
+}, 2000);
+
+});
+
+
+//click next
+
+$('.next').click(function(){
+
+next();//gọi hàm next vừa tạo ở trên
+
+var test = $('.item-img.active').index() + 1;
+
+
+var a = $('.item-list:nth-child('+test+')');
+
+
+$('.img-thumbnail').animate({
+
+
+left: 0 - (a.position().left/2)
+
+},500);
+
+
+                       
+
+});
+
+
+//click prev
+$('.prev').click(function(){
+
+prev();//gọi hàm prev vừa tạo ở trên
+
+var test = $('.item-img.active').index() + 1;
+
+
+var a = $('.item-list:nth-child('+test+')');
+
+
+$('.img-thumbnail').animate({
+
+
+left: 0 - (a.position().left/2)
+
+},500);
+
+
+});
+
+
+
+
+});
+</script>
+{%endblock %}
+
