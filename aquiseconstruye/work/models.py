@@ -109,6 +109,9 @@ class Work(models.Model):
     contracts48 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts49 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts50 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
+    newsletter = models.FileField(blank=True, null=True, upload_to='newsletter', verbose_name='Boletin')
+    survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
+    other = models.TextField(blank=True, null=True, verbose_name=('Otra'))
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 

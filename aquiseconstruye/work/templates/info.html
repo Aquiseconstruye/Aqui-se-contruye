@@ -1,0 +1,93 @@
+<style>
+    
+</style>
+
+{% block content %}
+    <div class="container">
+        <div class="row text-center">
+            <h2>{{obra.name}}</h2>
+            <br>
+            <br>
+            <br>
+        </div>
+        <div class="row text-center">
+            <div class="col"></div>
+            <div class="col">
+                <img src=https://i.ibb.co/zsTPVdL/monedas.png alt="logo" width=120 height=100 >
+            </div>
+            <div class="col">
+                <h3>${{obra.price}}0</h3>
+            </div>
+            <div class="col"></div>
+        </div>
+            <br>
+            <br>
+            <br>
+        <div class="row text-center">
+            <div class="col"></div>
+            <div class="col">
+                {%if obra.traffic_light == '1'%}
+                    <img src=https://i.ibb.co/XxBXwnL/rojo.png alt="logo" width=90 height=100 >
+                {%elif obra.traffic_light == '2'%}
+                    <img src=https://i.ibb.co/cLpxYmw/Amarillo.png alt="logo" width=90 height=100 >
+                {%else%}
+                    <img src=https://i.ibb.co/6HNLSRb/Sin-ti-tulo-2.png alt="logo" width=90 height=100 >
+                {%endif%}
+            </div>
+            <div class="col">
+                <h3>${{obra.price}}0</h3>
+            </div>
+            <div class="col"></div>
+        </div>
+            <br>
+            <br>
+            <br>
+       
+        <div class="row text-center">
+            <div class="col"></div>
+            <div class="col">
+                <img src=https://i.ibb.co/fQNtDH5/poli.png alt="logo" width=120 height=100 >
+            </div>
+            <div class="col">
+                <h3>Funcionario (s)</h3>
+                {% if obra.official%}
+                    <h5>{{obra.official}}</h5>
+                {%endif%}
+                <h3>Dependencia</h3>
+                {% if obra.dependence%}
+                    <h5>{{obra.dependence}}</h5>
+                {%endif%}
+            </div>
+            <div class="col"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+        <div class="row text-center">
+            <div class="col"></div>
+            <div class="col">
+                <img src=https://i.ibb.co/7GMTzDR/construction-crane-hand-drawn-tool.png alt="logo" width=120 height=100 >
+            </div>
+            <div class="col">
+                <h3>Constructora (s)</h3>
+                {% if obra.constructor%}
+                    <h5>{{obra.constructor}}</h5>
+                {%endif%}
+                {% if obra.constructor1%}
+                    <h5>{{obra.constructor1}}</h5>
+                {%endif%}
+                {% if obra.constructor2%}
+                    <h5>{{obra.constructor2}}</h5>
+                {%endif%}
+                {% if obra.constructor3%}
+                    <h5>{{obra.constructor3}}</h5>
+                {%endif%}
+                {% if obra.constructor4%}
+                    <h5>{{obra.constructor4}}</h5>
+                {%endif%}
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
