@@ -153,6 +153,7 @@
   z-index: 1;
   font-family: 'if';
   src: url('fonts/if.ttf') format('truetype');
+  text-decoration: none;
 }
 
 body {
@@ -164,11 +165,16 @@ body {
 
 a:hover {
   color:#e1ad02;
-  text-decoration: none;
+  text-decoration: none!important;
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none!important;
+}
+
+a:hover .afot {
+  color:#e1ad02;
+  text-decoration: none!important;
 }
 </style>    
     
@@ -209,7 +215,7 @@ a {
             </div>
             {%if request.user.is_authenticated%}
             <div class="menu-items">
-              <li><a href="{%url 'profile'%}">Perfil</a></li>
+              <li><a href="">Perfil</a></li>
               {%if request.user.is_staff%}
               <li><a href="admin/">Admin</a></li>
               {%endif%}
@@ -257,7 +263,7 @@ a {
                         <div class="col-md-6">
                            <ul>
                               
-                              <li> <a href="" class="afot">Acerca de nosotros</a> </li>
+                              <li> <a href="" style="text-decoration: none;" class="afot">Acerca de nosotros</a> </li>
                            
                         
                           

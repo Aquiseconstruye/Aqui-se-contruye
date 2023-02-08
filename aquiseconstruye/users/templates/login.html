@@ -1,0 +1,81 @@
+{%extends 'base.html'%}
+{% load i18n %}
+{%block title%} {% trans 'Ingresar' %} {%endblock%}
+
+{%block extrahead%}
+{%endblock%}
+
+{%block extrastyle%}
+{%endblock%}
+
+
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <div style="margin-top:40px;margin-bottom:30px;text-align:center;">
+                <h2> Bienvenido </h2>
+            </div>
+            <br>
+            <br>
+            
+            <form action="" method="post">
+                {%csrf_token%}
+                <div class="form-group">
+                    <label>Email </label>
+                    <input id='email' type="email" class="form-control"  placeholder="ejemplo@correo.com" name='email' value='{{email}}' required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" placeholder="*********" name='password' value='{{password}}' required>
+                </div>
+                <br>
+				<button type="submit" id="submit" class="btn btn-dark " style="font-family:Covered By Your Grace; font-size:2rem;">login</button>
+
+            </form>
+            <br><br>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+</div>
+<br><br>
+{%endblock%}
+
+{%block js%}
+<script>
+
+    function send_reactivation(email){
+        if (email.length > 4){
+            $.ajax('/api/users/activation_email/?email='+email, {
+                type: "GET",
+                statusCode:
+                {
+                    200: function(response)
+                        {
+                            
+                            if (response.success){
+                                alert('{% trans "Email de confirmación enviado" %}')
+                            }else{
+                                alert('{% trans "Este email no esta registrado" %}')
+                            }
+                        },
+                    403: function(response)
+                        {
+                            //self.error(response.responseJSON.error_message)
+                        }
+                    }
+                });
+        }
+    }
+
+    function send_email(){
+        var email = $('#email').val()
+        if (email){
+            send_reactivation(email)
+        }else{
+            alert('{% trans "Llena el campo de email" %}')
+        }
+    }
+</script>
+{%endblock%}

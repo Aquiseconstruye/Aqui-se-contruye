@@ -1,0 +1,148 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+
+
+<form class="form" method="post">
+	{% csrf_token %}
+	<div class="container">
+			<div class="row">
+					<div class="form-group text-center">
+							<div class="form-control" style="background-color:#fff0; border:0 solid #fff0; font-family:Covered By Your Grace; font-size:2rem; margin-top: 10%;">
+										<div class="form-group">
+											<label>Email </label>
+											<input type="email" class="form-control"  placeholder="email" name='email' value='{{email}}' data-bind="value: email, css: valid, valueUpdate: 'keyup'" required>
+											<small data-bind="text: error" class='text-danger'></small>
+										</div>
+										<div class="col-6">
+											<div class="form-group">
+												<label>Nickname </label>
+												<input type="text" class="form-control"  placeholder="Nickname" name='username' value='{{username}}' required>
+											</div>
+										</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Nombre</label>
+											<input type="text" class="form-control"  placeholder="Nombre" name='first_name' value='{{first_name}}' required>
+										</div>
+			
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Apellido</label>
+											<input type="text" class="form-control"  placeholder="Apellido" name='last_name' value='{{last_name}}' required>
+										</div>
+									</div>
+								
+								<div class="row" id='password_form'>
+									<div class="col-6" >
+										<div class="form-group">
+											<label>"Contraseña"</label>
+											<input type="password" class="form-control"  placeholder="contraseña" name='password'  data-bind="value: password, css: valid, valueUpdate: 'keyup'" required>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label>Confirmar contraseña </label>
+											<input type="password" class="form-control"  placeholder="contraseña" name='password2' data-bind="value: password2, css: valid2, valueUpdate: 'keyup'" required>
+										</div>
+									</div>
+								</div>	
+								<br>
+								<br>
+								<fieldset id="institute">
+									<label class="form-check-label">Institución u organización</label>
+									
+									<div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="institute" id="inst" value="inst" checked>
+										<label class="form-check-label" for="inst">Instituto</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="institute" id="org" value="org"checked>
+										<label class="form-check-label" for="org">Organización</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="institute" id="none" value="none"checked>
+										<label class="form-check-label" for="none">Ninguno</label>
+										</div>
+									</div>
+									</fieldset>
+									<br>
+									
+								<fieldset id="genders">
+									<label class="form-check-label">Sexo</label>
+								
+									<div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="genders" id="gender_female" value="gender_female" checked>
+										<label class="form-check-label" for="gender_female">Femenino</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="genders" id="gender_male" value="gender_male"checked>
+										<label class="form-check-label" for="gender_male">Masculino</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="genders" id="gender_other" value="gender_other"checked>
+										<label class="form-check-label" for="gender_other">Prefiero no dar esa información</label>
+										</div>
+									</div>
+									</fieldset>
+									<br>
+									
+									<fieldset id="degree_of_studies">
+									<label class="form-check-label">Grado de estudios</label>
+									<div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="degree_of_studies" id="primaria" value="primaria" checked>
+										<label class="form-check-label" for="primaria">Primaria</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="degree_of_studies" id="secundaria" value="secundaria"checked>
+										<label class="form-check-label" for="secundaria">Secundaria</label>
+										</div>
+										<div class="form-check form-check-inline">
+										<input class="form-check-input " type="radio" name="degree_of_studies" id="preparatoria" value="preparatoria"checked>
+										<label class="form-check-label" for="preparatoria">Preparatoria</label>
+										</div>
+											<div class="form-check form-check-inline">
+											<input class="form-check-input " type="radio" name="degree_of_studies" id="universidad" value="universidad" checked>
+											<label class="form-check-label" for="universidad">Universidad</label>
+											</div>
+											<div class="form-check form-check-inline">
+											<input class="form-check-input " type="radio" name="degree_of_studies" id="maestria" value="maestria"checked>
+											<label class="form-check-label" for="maestria">Maestria</label>
+											</div>
+											<div class="form-check form-check-inline">
+											<input class="form-check-input " type="radio" name="degree_of_studies" id="postgrado" value="postgrado"checked>
+											<label class="form-check-label" for="postgrado">Postgrado</label>
+											</div>
+									</div>
+									</fieldset>
+			
+			
+								
+								</br>
+								<div>
+								</br>
+								<label class="form-check-label">Fecha de nacimiento:</label>
+									<input class="form-check-label" type="date" id="birthday" name="birthday" value="birthday"
+										placeholder="aaaa/mm/dd" 
+										min="1921-01-01" max="2021-12-31">
+								</div>
+								<br>
+								<br>
+								
+									
+									<button type="submit" id="submit" class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;">Registarse</button>
+									
+
+							</div>
+					</div>
+			</div>	
+	</div>
+
+</form>
+
+{% endblock %}
