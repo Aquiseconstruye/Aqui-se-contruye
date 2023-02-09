@@ -15,6 +15,7 @@ import os
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from rest_framework.authtoken.models import Token
+from work.models import Work
 
 
 INSTITUTE_CHOICES = ((1,'Instituto'),
@@ -43,8 +44,23 @@ class User(AbstractUser):
     institute = models.IntegerField(default=1, choices=INSTITUTE_CHOICES, verbose_name=('Instituto u Organizacion'))
     degree_of_studies = models.IntegerField(default=1, choices=DEGREE_OF_STUDIES_CHOICES, verbose_name=('Grado de estudios'))
     birthday = models.DateField(blank=True, null=True, verbose_name=('fecha de nacimiento'))
-    
+        
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+class Relationship(models.Model):
+    work= models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True)
+    
+    class meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'users'
+        
+    def __str__(self):
+        return str(self.id) + '-' + self.user.username
+    
+    def __str__(self):
+        return f'{self.work} to {self.user}'

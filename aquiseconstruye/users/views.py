@@ -177,3 +177,23 @@ class ProfileFormView(View):
             user = form.save()
             messages.success(request, ('Información guardada'))
         return render(request, 'profile.html', locals())
+
+
+def follow(request):
+	current_user = request.user
+	to_work = Work.objects.get()
+	to_user_id = to_work
+	rel = Relationship(user=current_user, work=to_user_id)
+	rel.save()
+	messages.success(request, f'sigues a {to_work}')
+	return redirect('profile')
+
+
+def unfollow(request):
+	current_user = request.user
+	to_work = Work.objects.get()
+	to_user_id = to_work
+	rel = Relationship.objects.filter(user=current_user.id, work=to_user_id).get()
+	rel.delete()
+	messages.success(request, f'Ya no sigues a {to_work}')
+	return redirect('profile')

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+#from users.models import User, Relationship
 # Create your models here.
 class TrafficLight(models.Model):
     color = models.CharField(max_length=300)
@@ -119,6 +120,12 @@ class Work(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+
+
+    def following(self):
+        user_ids = Relationship.objects.filter(work=self.user)\
+								.values_list('user_id', flat=True)
+        return User.objects.filter(id__in=user_ids)
 
 class Survey(models.Model):
     survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
