@@ -2,22 +2,41 @@
 
 {% block content %}
 
-<form class="form" method="post">
-	{% csrf_token %}
-	<div class="container">
-			<div class="row">
-					<div class="form-group text-center">
-							<div class="form-control" style="background-color:#fff0; border:0 solid #fff0; font-family:Covered By Your Grace; font-size:2rem; margin-top: 10%; height:53vh;">
-									{{ form.as_p }}
-									
-									
-									<button type="submit" id="submit" style="background-color:#fff0; border:1 solid #fff0; font-family:Covered By Your Grace; font-size:2rem;">Enviar</button>
+<div class="container-fluid no-padding">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8" style="background-color:#fff0; border:0 solid #fff0; font-family:Covered By Your Grace; font-size:2rem; margin-top: 10%;">
+            <h2 class="text-center" >Editar perfil</h2><br><br>
+           
+            <div class="text-center">
+                {%if user.avatar%}
+                    <img src='{{user.avatar.url}}' style="width:100px;border-radius:50px">
+                {%else%}
+                    <img src='https://i.postimg.cc/RhTTQLpt/user.png' style="width:100px;border-radius:50px; background-color:white;">
+                {%endif%}
+            </div>
 
-							</div>
-					</div>
-			</div>	
-	</div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control"  name='first_name' value='{{user.first_name}}'>
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" name='last_name' value="{{user.last_name}}">
+                </div>
+				<br>
+                <div class="form-group">
+                    <label>Foto</label>
+                    <input type="file" class="form-control-file" name='avatar'>
+                    <small></small>
+                </div>
 
-</form>
+				<br>
+				<button type="submit" id="submit" class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;">Guardar</button>
 
-{% endblock %}
+            </form>
+        </div>
+    </div>
+{%endblock%}

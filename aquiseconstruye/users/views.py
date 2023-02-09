@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.hashers import check_password  # , make_password
-
+from .forms import ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -151,3 +151,29 @@ class LogoutView(View):
         logout(request)
         next = request.GET.get('next', '/')
         return redirect(next)
+
+class ProfileView(View):
+
+	@method_decorator(login_required)
+	def get(self, request, *args, **kwargs):
+		user = User.objects.get(id=request.user.id)
+		return render(request, 'profile.html', locals())
+
+    
+
+
+class ProfileFormView(View):
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+    	return render(request, 'form_perfil.html', locals())
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_protect)
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(id=request.user.id)
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, ('Información guardada'))
+        return render(request, 'profile.html', locals())

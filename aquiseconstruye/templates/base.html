@@ -215,7 +215,8 @@ a:hover .afot {
             </div>
             {%if request.user.is_authenticated%}
             <div class="menu-items">
-              <li><a href="">Perfil</a></li>
+              <li><a href="{%url 'profile'%}">Perfil</a></li>
+              <li><a href="{%url 'profile_form'%}">Editar Perfil</a></li>
               {%if request.user.is_staff%}
               <li><a href="admin/">Admin</a></li>
               {%endif%}
