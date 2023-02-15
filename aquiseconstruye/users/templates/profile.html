@@ -1,25 +1,12 @@
 {% extends 'base.html' %} 
+{% load static %}
+
 
 {% block content %}
 
 <!-- Profile -->
+{% include 'cover.html'%}
 <div class="container-fluid no-padding">
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8" style="background-color:#fff0; border:0 solid #fff0; font-family:Covered By Your Grace; font-size:2rem; margin-top: 10%;">
-            <h2 class="" >{{user.username}}</h2>
-           
-            <div class="">
-                {%if user.avatar%}
-                    <img src='{{user.avatar.url}}' style="width:100px;border-radius:50px">
-                {%else%}
-                    <img src='https://i.postimg.cc/RhTTQLpt/user.png' style="width:100px;border-radius:50px; background-color:white;">
-                {%endif%}
-            </div>
-
-        
-        </div>
-    </div>
 
 <!-- Follow items -->
 <div class="follow">

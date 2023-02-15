@@ -1,0 +1,58 @@
+
+<style>
+
+
+  .header-solidarity-company{
+    {% if room.cover %}
+    background: url('{{user.cover.url}}');
+    {% else %}
+    background: url('https://i.ibb.co/ZJgxd7r/Sin-ti-tulo.png');
+    {% endif %}
+    padding: 50px 0px;
+    height: 400px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+    section.header-solidarity-company .bg-opacity{
+      position: absolute;
+      z-index: 1;
+      top: 0%;
+      left: 0%;
+      bottom: 0%;
+      right: 0%;
+      height: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+</style>
+
+{% block content %}
+
+<!-- Profile -->
+<div class="container-fluid">
+    <section class="row header-solidarity-company" style="position:relative">
+       
+      <div class="bg-opacity"></div>
+      <div class="col-12" style="z-index:3; text-align:center;">
+        {%if user.avatar%}
+        <img id="comp-jhw79wf0imgimage" alt="" data-type="image" style="width: 96px; height: 90px; object-fit: cover; border-radius: 50px; "  src="{{user.avatar.url}}">
+        {%else%}
+        <img id="comp-jhw79wf0imgimage" alt="" data-type="image" style="width: 96px; height: 90px; object-fit: cover; border-radius: 50px; "  src="https://i.postimg.cc/RhTTQLpt/user.png'">
+        {% endif %}
+        <br>
+        <br>
+        <h2 style=" font-family:Covered By Your Grace; font-size:2rem; text-align:center; color:white;">{{user.username}}</h2>
+        <br>
+
+    </section>
+  </div>
+
+
+
+
+
+{% endblock %}

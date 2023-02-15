@@ -40,6 +40,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=140, blank=True, null=True)
     last_name = models.CharField(max_length=140, blank=True, null=True)
     avatar = models.ImageField(upload_to='avatar/', blank=True, null=True)
+    portada = models.ImageField(upload_to='portada_user/', blank=True, null=True)
     genders = models.IntegerField(default=1, choices=GENDER_CHOICES, verbose_name=('Genero'))
     institute = models.IntegerField(default=1, choices=INSTITUTE_CHOICES, verbose_name=('Instituto u Organizacion'))
     degree_of_studies = models.IntegerField(default=1, choices=DEGREE_OF_STUDIES_CHOICES, verbose_name=('Grado de estudios'))
