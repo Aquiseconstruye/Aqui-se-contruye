@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{% load i18n %}
+
+{%block extrastyle%}
+{%endblock%}
+
+
+{%block content%}
+<h1>Encuesta para {{ obra.name }}</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Enviar</button>
+</form>
+
+{%endblock%}

@@ -14,5 +14,9 @@ class TrafficLightAdmin(admin.ModelAdmin):
 
 
 
+
+
+
 admin.site.register(Work, WorkAdmin)
+
 admin.site.register(TrafficLight,TrafficLightAdmin)

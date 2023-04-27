@@ -29,15 +29,179 @@
   <br>
   <br>
   <br>
-  {% include 'info.html'%}
+  <div class="container">
+    {% if request.user.is_authenticated %}
+
+  <button><a class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;" href="{% url 'follow' %}">Follow</a></button>
+
+{% endif %}
+
+    <div class="row text-center">
+        <h2>{{obra.name}}</h2>
+        <br>
+        <br>
+        <br>
+    </div>
+    <div class="row text-center" style="height: 200px;">
+      
+        
+        <div class="col">
+            {% if obra.completate %}
+            <h5>obra completada</h5>
+            {% else %}
+            <div class="col">
+                <p>Días restantes: {{ dias_restantes }}</p>
+                <div>{{ graph|safe }}</div>
+            </div>
+        {% endif %}
+
+
+        </div>
+      
+    
+    
+    </div>
+        <br>
+        <br>
+   
+        
+        <br>
+        <br>
+            <br>
+            <br>
+        <div class="row text-center">
+            <div class="col"></div>
+            
+            <div class="col">
+                <img src='https://i.ibb.co/KxpjKxk/kids-calendar.png' alt="logo" width=120 height=100 >
+            </div>
+            <div class="col">
+                <h3>Inicio de la obra</h3>
+                <h4>{{ obra.start_of_work|date:"d-m-Y" }}</h4>
+            </div>
+            <div class="col">
+                <h3>Plazo para complentar la obra</h3>
+                <h4>{{obra.term|date:"d-m-Y"}}</h4></div>
+            <div class="col"></div>
+        </div>
+            <br>
+            <br>
+            <br>
+    <div class="row text-center">
+        <div class="col"></div>
+        <div class="col">
+            <img src='https://i.ibb.co/zsTPVdL/monedas.png' alt="logo" width=120 height=100 >
+        </div>
+        <div class="col">
+            <h3>${{obra.price}}0</h3>
+        </div>
+        <div class="col"></div>
+    </div>
+        <br>
+        <br>
+        <br>
+   
+    <div class="row text-center">
+        <div class="col"></div>
+        <div class="col">
+            <img src="https://i.ibb.co/fQNtDH5/poli.png" alt="logo" width=120 height=100 >
+        </div>
+        <div class="col">
+            <h3>Funcionario (s)</h3>
+            {% if obra.official%}
+                <h5>{{obra.official}}</h5>
+            {%endif%}
+            <h3>Dependencia</h3>
+            {% if obra.dependence%}
+                <h5>{{obra.dependence}}</h5>
+            {%endif%}
+        </div>
+        <div class="col"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <div class="row text-center">
+        <div class="col"></div>
+        <div class="col">
+            <img src="https://i.ibb.co/7GMTzDR/construction-crane-hand-drawn-tool.png" alt="logo" width=120 height=100 >
+        </div>
+        <div class="col">
+            <h3>Constructora (s)</h3>
+            {% if obra.constructor%}
+                <h5>{{obra.constructor}}</h5>
+            {%endif%}
+            {% if obra.constructor1%}
+                <h5>{{obra.constructor1}}</h5>
+            {%endif%}
+            {% if obra.constructor2%}
+                <h5>{{obra.constructor2}}</h5>
+            {%endif%}
+            {% if obra.constructor3%}
+                <h5>{{obra.constructor3}}</h5>
+            {%endif%}
+            {% if obra.constructor4%}
+                <h5>{{obra.constructor4}}</h5>
+            {%endif%}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
   <br>
   <br>
   <br>
+  <div class="row text-center">
+    <div class="col"></div>
+    <div class="col">
+        <img src="https://i.ibb.co/ByTj5HQ/business-partnership.png" alt="logo" width=120 height=100 >
+    </div>
+    <div class="col">
+        <h3>Contratos</h3>
+   
+        <a href="{% url 'obra' obra.slug %}?download=1&fields=contracts,contracts1,contracts2,contracts3,contracts4,contracts5,contracts6,contracts7,contracts8,contracts9,contracts10,
+        contracts11,contracts12,contracts13,contracts14,contracts15,contracts16,contracts17,contracts18, contracts19, contracts20,contracts21,contracts22,contracts23,
+        contracts24,contracts25,contracts26,contracts27,contracts28,contracts29,contracts30,contracts31,contracts32,contracts33,contracts34,contracts35,contracts36,contracts37,contracts38,contracts39
+        contracts40,contracts41,contracts42,contracts43,contracts44,contracts45,contracts46,contracts47,contracts48,contracts49contracts50">Descargar archivos</a>
+
+       
+        
+    </div>
+    <div class="col"></div>
+</div>
+<br>
+<br>
+<br>
+</div>
+
+
+
+  <br>
+  <br>
+  <br>
+<div class="container text-center" style="background-color: #fff;">
+    <br>
+  <br>
+  <br>
+
+    <object data="{{ obra.newsletter.url }}" type="application/pdf" width="80%" height="90%">
+        <p>Este navegador no soporta la visualización de archivos PDF. Puedes descargar el archivo haciendo click <a href="{{ obra.newsletter.url }}">aquí</a>.</p>
+      </object>
+      <br>
+  <br>
+  <br>
+
+  
 
 </div>
 
 {%endblock%}
 
 {% block scripts %}
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script>
+    var graph = {{ graph|safe }};
+    Plotly.newPlot('plotly-graph', JSON.parse(graph));
+</script>
 
 {% endblock %}

@@ -6,7 +6,7 @@
 
 <!-- Profile -->
 {% include 'cover.html'%}
-<div class="container-fluid no-padding">
+<div class="container-fluid text-center no-padding">
 
 <!-- Follow items -->
 <div class="follow">
@@ -14,7 +14,7 @@
 		
 	<div>
 		<h5>Followers</h5>
-		<p>{{ user.profile.followers.count }}</p>
+		{% include 'card.html' %}
 
 	</div>
 	

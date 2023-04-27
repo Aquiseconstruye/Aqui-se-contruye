@@ -45,6 +45,9 @@ class User(AbstractUser):
     institute = models.IntegerField(default=1, choices=INSTITUTE_CHOICES, verbose_name=('Instituto u Organizacion'))
     degree_of_studies = models.IntegerField(default=1, choices=DEGREE_OF_STUDIES_CHOICES, verbose_name=('Grado de estudios'))
     birthday = models.DateField(blank=True, null=True, verbose_name=('fecha de nacimiento'))
+
+    def __str__(self):
+        return self.username
         
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

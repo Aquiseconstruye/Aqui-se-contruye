@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-#from users.models import User, Relationship
+from datetime import datetime
 # Create your models here.
 class TrafficLight(models.Model):
     color = models.CharField(max_length=300)
@@ -13,11 +13,6 @@ TRAFFIC_LIGHT_CHOICES = ((1,'Rojo'),
                     (2,'Amarillo'),
                     (3,'Verde'))
                     
-SURVEY_CHOICES = ((1,'Afecta mi translado'),
-                    (2,'Afecta mi patrimonio'),
-                    (3,'Afecta mis labores domesticos'),
-                    (4,'Otro'))
-
 
 class Work(models.Model):
     name = models.CharField(max_length=300, verbose_name=('Nombre de la obra'))
@@ -49,6 +44,7 @@ class Work(models.Model):
     price = models.FloatField(blank=True, null=True, verbose_name=('precio'))
     budget = models.FloatField(blank=True, null=True, verbose_name=('presupuesto'))
     term = models.DateTimeField(blank=True, null=True, verbose_name=('plazo'))
+    term2 = models.DateTimeField(blank=True, null=True, verbose_name=('días restantes'))
     start_of_work = models.DateTimeField(blank=True, null=True, verbose_name=('inicio de obra'))
     traffic_light = models.IntegerField(default=2, choices=TRAFFIC_LIGHT_CHOICES, verbose_name=('semaforo'))
     img_traffic_light = models.ForeignKey(TrafficLight, related_name="semaforo", blank=True, null=True, on_delete=models.CASCADE)
@@ -110,31 +106,28 @@ class Work(models.Model):
     contracts48 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts49 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts50 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
-    newsletter = models.FileField(blank=True, null=True, upload_to='newsletter', verbose_name='Boletin')
-    survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
-    other = models.TextField(blank=True, null=True, verbose_name=('Otra'))
+    completate = models.BooleanField(default=False, blank=True, null=True, verbose_name=('obra completada'))
+    newsletter = models.FileField(blank=True, null=True, upload_to='newsletter', verbose_name='fuentes')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        if self.pk is not None and self.completate != self.__class__.objects.get(pk=self.pk).completate and self.completate:
+            # si completate ha cambiado de False a True, actualiza la fecha de término
+            self.term2 = datetime.now().date()
+        elif self.pk is not None and self.completate != self.__class__.objects.get(pk=self.pk).completate and not self.completate:
+            # si completate ha cambiado de True a False, reinicia la fecha de término
+            self.term2 = None
+        super().save(*args, **kwargs)   
 
 
-    def following(self):
-        user_ids = Relationship.objects.filter(work=self.user)\
-								.values_list('user_id', flat=True)
-        return User.objects.filter(id__in=user_ids)
-
-class Survey(models.Model):
-    survey = models.IntegerField(default=1, choices=SURVEY_CHOICES, verbose_name=('encuesta'))
-    other = models.TextField(blank=True, null=True, verbose_name=('Otra'))
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-
-
-class Newsletter(models.Model):
-    newsletter = models.FileField(blank=True, null=True, upload_to='newsletter', verbose_name='fuentes')
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)

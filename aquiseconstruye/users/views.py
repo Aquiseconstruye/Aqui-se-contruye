@@ -157,26 +157,12 @@ class ProfileView(View):
 	@method_decorator(login_required)
 	def get(self, request, *args, **kwargs):
 		user = User.objects.get(id=request.user.id)
+		relationships = Relationship.objects.filter(user=user)
+			
+		for relationship in relationships:
+			print(relationship.work)
+
 		return render(request, 'profile.html', locals())
-
-    
-
-
-class ProfileFormView(View):
-
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-    	return render(request, 'form_perfil.html', locals())
-
-    @method_decorator(login_required)
-    @method_decorator(csrf_protect)
-    def post(self, request, *args, **kwargs):
-        user = User.objects.get(id=request.user.id)
-        form = ProfileForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            user = form.save()
-            messages.success(request, ('Información guardada'))
-        return render(request, 'profile.html', locals())
 
 
 def follow(request):
@@ -197,3 +183,22 @@ def unfollow(request):
 	rel.delete()
 	messages.success(request, f'Ya no sigues a {to_work}')
 	return redirect('profile')
+
+
+class ProfileFormView(View):
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+    	return render(request, 'form_perfil.html', locals())
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_protect)
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(id=request.user.id)
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, ('Información guardada'))
+        return render(request, 'profile.html', locals())
+
+

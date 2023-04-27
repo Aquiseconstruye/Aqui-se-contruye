@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('team.urls')),
     path('', include('users.urls')),
     path('', include('work.urls')),
+    path('', include('survey.urls')),
     path('obras/',ObrasView.as_view(), name='obras'),
     path('obra/<str:slug>/',ObraDetailView.as_view(), name='obra'),
     #path('obra/<str:slug>/',WorkDetailView.as_view(), name='obra'),
