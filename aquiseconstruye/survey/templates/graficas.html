@@ -1,0 +1,60 @@
+{%extends 'base.html'%}
+{% load i18n %}
+
+{%block extrastyle%}
+{%endblock%}
+
+
+{%block content%}
+
+
+<div class="container">
+  <div class="row">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="vh-100 d-flex justify-content-center align-items-center">
+          <div class="col-md-12">
+              
+              <div class="card  bg-white shadow p-5">
+                  <div class="mb-4 text-center">
+                    
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    
+                          
+                  </div>
+                  <div class="text-center">
+                  
+
+                    {{ encuesta|safe }}
+
+              
+                    
+
+                    {{ presupuesto|safe }}
+                
+                     
+                  </div>
+
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+{%endblock%}

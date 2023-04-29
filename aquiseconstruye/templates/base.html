@@ -109,7 +109,7 @@ a:hover .afot {
         </div>
         <div class="menuct">
           <ul>
-            <li><a href="#" class="home">
+            <li><a href="/" class="home">
               <div class="logo">
               <img src="{% static "LogoWeb.png" %}" style="width: 200px; height: 100px; " alt='aqui se construye'>
           </div>
@@ -119,8 +119,9 @@ a:hover .afot {
             <li><a href="{%url 'profile_form'%}">Editar Perfil</a></li>
             {%if request.user.is_staff%}
             <li><a href="admin/">Admin</a></li>
+            <li><a href="{%url 'graficas'%}"> Graficas</a></li>
             {%endif%}
-            <a href="{%url 'logout'%}">Logout</a>
+            <li><a href="{%url 'logout'%}">Salir</a></li>
             {%else%}
       
               <li><a href="{%url 'login'%}">login</a></li>
@@ -150,7 +151,7 @@ a:hover .afot {
                   <div class="col-md-6 ">
                      <div class="logo-part">
                       <div class="logo">
-                        <img src="{% static "LogoWeb.png" %}" style="width: 100px; height: 50px; " alt='aqui se construye'>
+                        <a href="/"><img src="{% static "LogoWeb.png" %}" style="width: 100px; height: 50px; " alt='aqui se construye'></a>
                     </div>
                         
                      </div>

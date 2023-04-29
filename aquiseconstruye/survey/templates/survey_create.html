@@ -1,0 +1,61 @@
+{%extends 'base.html'%}
+{% load i18n %}
+
+{%block extrastyle%}
+{%endblock%}
+
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container text-center" style="background-color:#fdfdfd">
+  <br>
+  <br>
+  <br>
+  <br>
+      <form method="post">
+        <h2>Hola queremos conocer como te afecta esta obra en tu vida diaria</h2>
+        <br>
+        <br>
+        <br>
+        {% csrf_token %}
+          <div class="form-group">
+            {{ form.survey }}
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <p>Cuentanos por que...</p>
+          <div class="form-group">
+            {{ form.other }}
+          </div>
+          <br>
+          <br>
+          <br>
+        
+          <button type="submit"  class="btn btn-dark">Enviar</button>
+        
+      </form>
+
+      <br>
+      <br>
+      <br>
+      <br>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{%endblock%}

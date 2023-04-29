@@ -1,12 +1,10 @@
 from django.urls import path
-from . import views
-from django.conf import settings
-from django.conf.urls.static import static
-from .views import *
+from survey.views import SurveyFormView, GraficasView
+
 
 urlpatterns = [
 	
-        path('crear_encuesta/<int:obra_id>/', survey_create_view, name='crear_encuesta'),
-
-		
+        path('encuesta/<int:obra_id>/', SurveyFormView.as_view(), name='encuesta'),
+        path('Graficas', GraficasView.as_view(), name='graficas'),
+	
 ]
