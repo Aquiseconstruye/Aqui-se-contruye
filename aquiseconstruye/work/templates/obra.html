@@ -32,8 +32,11 @@
   <br>
   <div class="container">
     
-
-  <a class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;" href="{% url 'follow' %}">Seguir</a>
+    {% if is_following %}
+    <a class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;" href="{% url 'unfollow' %}">Dejar de seguir</a>
+    {% else %}
+        <a class="btn btn-dark" style="font-family:Covered By Your Grace; font-size:2rem;" href="{% url 'follow' %}">Seguir</a>
+    {% endif %}
 
 
 
@@ -163,17 +166,73 @@
         <a href="{% url 'obra' obra.slug %}?download=1&fields=contracts,contracts1,contracts2,contracts3,contracts4,contracts5,contracts6,contracts7,contracts8,contracts9,contracts10,
         contracts11,contracts12,contracts13,contracts14,contracts15,contracts16,contracts17,contracts18, contracts19, contracts20,contracts21,contracts22,contracts23,
         contracts24,contracts25,contracts26,contracts27,contracts28,contracts29,contracts30,contracts31,contracts32,contracts33,contracts34,contracts35,contracts36,contracts37,contracts38,contracts39
-        contracts40,contracts41,contracts42,contracts43,contracts44,contracts45,contracts46,contracts47,contracts48,contracts49contracts50" style="background-color: #000000; color:#e1ad02;
+        contracts40,contracts41,contracts42,contracts43,contracts44,contracts45,contracts46,contracts47,contracts48,contracts49contracts50" style="background-color: #e1ad02; color:#000000;
         text-align: center;
         z-index: 1;
         font-size: 40px;
         font-family: 'if';
-        src: url('fonts/if.ttf') format('truetype');">Descargar archivos</a>
+        src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Descargar archivos</a>
 
        
         
     </div>
     <div class="col"></div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="row text-center">
+    <div class="col"> 
+        {% if obra.link %}
+            <a href="{{ my_object.link }}" style="background-color: #e1ad02; color:#000000; text-align: center;
+            z-index: 1;
+            font-size: 40px;
+            font-family: 'if';
+            src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Ver enlace</a>
+        {% endif %}
+    </div>
+    <div class="col">
+        {% if obra.link2 %}
+            <a href="{{ my_object.link2 }}" style="background-color: #e1ad02; color:#000000; text-align: center;
+            z-index: 1;
+            font-size: 40px;
+            font-family: 'if';
+            src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Ver enlace</a>
+        {% endif %}
+        
+    </div>
+    <div class="col">
+        {% if obra.link3 %}
+            <a href="{{ my_object.link3 }}" style="background-color: #e1ad02; color:#000000; text-align: center;
+            z-index: 1;
+            font-size: 40px;
+            font-family: 'if';
+            src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Ver enlace</a>
+        {% endif %}
+        
+
+       
+        
+    </div>
+    <div class="col">
+        {% if obra.link4 %}
+            <a href="{{ my_object.link4 }}" style="background-color: #e1ad02; color:#000000; text-align: center;
+            z-index: 1;
+            font-size: 40px;
+            font-family: 'if';
+            src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Ver enlace</a>
+        {% endif %}
+    </div>
+    <div class="col">
+        {% if obra.link5 %}
+            <a href="{{ my_object.link5 }}" style="background-color: #e1ad02; color:#000000; text-align: center;
+            z-index: 1;
+            font-size: 40px;
+            font-family: 'if';
+            src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Ver enlace</a>
+        {% endif %}
+    </div>
 </div>
 <br>
 <br>
@@ -205,7 +264,7 @@
     z-index: 1;
     font-size: 40px;
     font-family: 'if';
-    src: url('fonts/if.ttf') format('truetype');">Crear Encuesta</a>
+    src: url('{{STATIC_URL}}font/if.ttf') format('truetype');">Crear Encuesta</a>
 <br>
 <br>
 <br>

@@ -18,10 +18,10 @@ from plotly.subplots import make_subplots
 from django.utils import timezone
 from datetime import datetime, date
 from django.db import models
-
+import pandas as pd
 import os
 import zipfile
-
+from users.models import Relationship
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import DetailView
@@ -52,6 +52,13 @@ class ObraDetailView(DetailView):
 
         # Obtener la obra a través del slug en la URL
         obra = Work.objects.filter(slug=self.kwargs.get('slug')).first()
+        
+
+        is_following = False
+        if self.request.user.is_authenticated:
+            is_following = Relationship.objects.filter(user=self.request.user, work=obra).exists()
+
+
 
         now = datetime.now()
         today = date.today()
@@ -98,9 +105,13 @@ class ObraDetailView(DetailView):
         # Crea la figura de la gráfica
         fig = go.Figure(data=data, layout=layout)
 
+
+
         # Convierte la figura de la gráfica en un objeto HTML y lo almacena en el contexto
         div = opy.plot(fig, auto_open=False, output_type='div')
         context['graph'] = div
+
+        context['is_following'] = is_following
 
         return context
 

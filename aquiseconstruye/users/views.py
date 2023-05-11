@@ -105,7 +105,8 @@ class SignupFormView(View):
 										degree_of_studies=studies)
 			user.set_password(password1)
 			user.save()
-			return render(request, 'home.html', locals())
+			login(request, user)
+			return redirect('home')
             
 		return render(request, 'register.html', locals())
         

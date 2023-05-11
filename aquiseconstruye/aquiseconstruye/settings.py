@@ -154,41 +154,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-AWS_ACCESS_KEY_ID = 'AKIATQLSUZHAORBLHNNY '
-AWS_SECRET_ACCESS_KEY = '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'
-DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
-STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
-EMAIL_BACKEND = "django_ses.SESBackend"
-AWS_SES_REGION_NAME = "us-west-1"
-AWS_SES_REGION_ENDPOINT = "email.us-west-1.amazonaws.com"
-AWS_S3_BUCKET_NAME = "puebanueva"
-AWS_S3_BUCKET_NAME_STATIC = "puebanueva"
-AWS_S3_ADDRESSING_STYLE = "auto"
-AWS_DEFAULT_ACL =  'public-read-write'
-AWS_S3_BUCKET_AUTH = False
 
-
-STATIC_URL = 'https://puebanueva.s3.us-west-1.amazonaws.com/static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join('staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'https://puebanueva.s3.us-west-1.amazonaws.com/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-MEDIA_URL = 'https://puebanueva.s3.us-west-1.amazonaws.com/media/'
-
-
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join('staticfiles')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-# MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 
 
 AUTH_USER_MODEL = 'users.User'
