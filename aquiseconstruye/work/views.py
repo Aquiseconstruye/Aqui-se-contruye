@@ -52,50 +52,60 @@ class ObraDetailView(DetailView):
 
         # Obtener la obra a través del slug en la URL
         obra = Work.objects.filter(slug=self.kwargs.get('slug')).first()
-        
 
         is_following = False
         if self.request.user.is_authenticated:
             is_following = Relationship.objects.filter(user=self.request.user, work=obra).exists()
 
-
-
-        now = datetime.now()
+        # Obtener información de fechas
         today = date.today()
-
-        # Obtener la información para la gráfica de la obra
         now = timezone.now().date()
-        dias_restantes = -1  # Valor predeterminado
-       
-        if obra.term2 is not None:
-            print ('obra',obra.term)
-            dias_restantes = (obra.term2.date() - now).days
-            if dias_restantes < 20:
+        start_date = obra.start_of_work.date() if obra.start_of_work else obra.created_at.date()
+        completion_date = obra.term.date() if obra.term else now
+
+        # Calcular duración y días restantes
+        duration = (completion_date - start_date).days
+        days_passed = (now - start_date).days
+        dias_restantes = (completion_date - now).days if obra.term else 0
+        print(dias_restantes)
+        print(days_passed)
+
+        # Calcular color de la gráfica
+        if obra.term:
+            if dias_restantes < 0:
+                color = 'gray'
+            elif dias_restantes < 20:
                 color = 'red'
             elif dias_restantes < 50:
                 color = 'yellow'
             else:
                 color = 'green'
         else:
-            color = 'gray'
+            if days_passed < 40:
+                color = 'green'
+            elif days_passed < 70:
+                color = 'yellow'
+            else:
+                color = 'red'
 
-        # Incluir la información de la gráfica en el contexto
+        context['duracion'] = duration
+        context['dias_pasados'] = days_passed
         context['dias_restantes'] = dias_restantes
         context['color'] = color
 
         # Define los datos de la gráfica
-        data = [go.Bar(
-                    x=[dias_restantes],
-                    y=[obra.name],
-                    orientation='h',
-                    marker=dict(color=color)
-                    )]
+        data = [go.Bar(            x=[dias_restantes if obra.term2 else days_passed],
+            y=[obra.name],
+            orientation='h',
+            marker=dict(color=color)
+            )]
 
         # Define el diseño de la gráfica
         layout = go.Layout(
             title='',
             xaxis=dict(
-                title='Días Restantes'
+                title='Días Restantes' if obra.term else 'Días Transcurridos',
+                range=[0, 365]
             ),
             yaxis=dict(
                 title=''
@@ -104,8 +114,6 @@ class ObraDetailView(DetailView):
 
         # Crea la figura de la gráfica
         fig = go.Figure(data=data, layout=layout)
-
-
 
         # Convierte la figura de la gráfica en un objeto HTML y lo almacena en el contexto
         div = opy.plot(fig, auto_open=False, output_type='div')

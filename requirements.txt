@@ -13,6 +13,7 @@ Django==4.1.1
 django-bootstrap4==22.3
 django-custom-user==1.1
 django-filter==22.1
+
 django-ipware==5.0.0
 django-pandas==0.6.6
 django-s3-storage==0.13.11
@@ -26,6 +27,10 @@ future==0.18.2
 geocoder==1.38.1
 geographiclib==2.0
 geopy==2.3.0
+gunicorn==20.1.0
+idna==3.4
+jmespath==1.0.1
+kiwisolver==1.4.4
 MarkupSafe==2.1.1
 matplotlib==3.7.1
 numpy==1.23.5

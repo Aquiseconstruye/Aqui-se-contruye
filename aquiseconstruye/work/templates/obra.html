@@ -41,10 +41,24 @@
 
 
     <div class="row text-center">
+        <h2>{{obra.no_work}}</h2>
+        <br>
+        <br>
+        <br>
+        <h2>{{obra.no_contract}}</h2>
+        <br>
+        <br>
+        <br>
+        <br>
+    
         <h2>{{obra.name}}</h2>
         <br>
         <br>
         <br>
+        <br>
+        <br>
+        <br>
+
     </div>
     <div class="row text-center" style="height: 200px;">
       
@@ -52,11 +66,24 @@
         <div class="col">
             {% if obra.completate %}
             <h5>obra completada</h5>
+         
             {% else %}
-            <div class="col">
-                <p>Días restantes: {{ dias_restantes }}</p>
-                <div>{{ graph|safe }}</div>
-            </div>
+                {% if obra.term %}
+                <div>
+                    <!-- Mostrar la gráfica normal con el plazo -->
+                    {{ graph|safe }}
+                </div>
+            {% else %}
+                <div>
+                    <!-- Mostrar la gráfica alternativa con los días transcurridos -->
+                    <h3>Días Transcurridos</h3>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ color }}" role="progressbar" aria-valuenow="{{ days_passed }}" aria-valuemin="0" aria-valuemax="{{ duration }}" style="width: {{ porcentaje_completado }}%">
+                            {{ days_passed }} días de {{ duration }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
 
 
@@ -73,6 +100,21 @@
         <br>
             <br>
             <br>
+            <div class="row text-center">
+                <div class="col"></div>
+                
+                <div class="col">
+                    <img src='https://i.ibb.co/KxpjKxk/kids-calendar.png' alt="logo" width=120 height=100 >
+                </div>
+                <div class="col">
+                    <h3>Firma de contrato</h3>
+                    <h4>{{ obra.signing_of_contract|date:"d-m-Y" }}</h4>
+                </div>
+                <div class="col"></div>
+            </div>
+                <br>
+                <br>
+                <br>
         <div class="row text-center">
             <div class="col"></div>
             
@@ -84,8 +126,13 @@
                 <h4>{{ obra.start_of_work|date:"d-m-Y" }}</h4>
             </div>
             <div class="col">
+                {% if obra.term%}
                 <h3>Plazo para complentar la obra</h3>
                 <h4>{{obra.term|date:"d-m-Y"}}</h4></div>
+                {%else%}
+                <h4>No hay paso para terminar la obra</h4>
+                {%endif%}
+
             <div class="col"></div>
         </div>
             <br>
@@ -249,15 +296,24 @@
   <br>
   <br>
 
-    <object data="{{ obra.newsletter.url }}" type="application/pdf" width="80%" height="90%">
-        <p>Este navegador no soporta la visualización de archivos PDF. Puedes descargar el archivo haciendo click <a href="{{ obra.newsletter.url }}">aquí</a>.</p>
-      </object>
+
+  {% if obra.newsletter.url%}
+  <object data="{{ obra.newsletter.url }}" type="application/pdf" width="80%" height="90%">
+    <p>Este navegador no soporta la visualización de archivos PDF. Puedes descargar el archivo haciendo click <a href="{{ obra.newsletter.url }}">aquí</a>.</p>
+  </object>
+  {%else%}
+  <h4></h4>
+  {%endif%}
+
+   
     <br>
     <br>
     <br>
     <br>
     <br>
     <br>
+
+    
 
     <a href="{% url 'encuesta' obra_id=obra.id %} " style="background-color: #000000; color:#e1ad02;
     text-align: center;
@@ -285,7 +341,7 @@
     <br>
     <br>
     <h2>{{obra.name}}</h2>
-    <p>Hola si quies saber mas de esta obra en contrucción tienes que registrarte con nosotros.</p>
+    <p>Hola si quieres saber más de esta obra en contrucción tienes que registrarte con nosotros.</p>
     <br>
     <br>
     <br>

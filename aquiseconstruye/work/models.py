@@ -15,6 +15,8 @@ TRAFFIC_LIGHT_CHOICES = ((1,'Rojo'),
                     
 
 class Work(models.Model):
+    no_work =  models.CharField(max_length=300,default='test', verbose_name=('Numero de la obra'))
+    no_contract =  models.CharField(max_length=300, default='test', verbose_name=('Numero de contrato'))
     name = models.CharField(max_length=300, verbose_name=('Nombre de la obra'))
     slug = models.CharField(max_length=100, blank=True, null=True, unique=True, db_index=True)
     address = models.CharField(max_length=500, null=True, default='test')
@@ -47,6 +49,7 @@ class Work(models.Model):
     term = models.DateTimeField(blank=True, null=True, verbose_name=('plazo'))
     term2 = models.DateTimeField(blank=True, null=True, verbose_name=('días restantes'))
     start_of_work = models.DateTimeField(blank=True, null=True, verbose_name=('inicio de obra'))
+    signing_of_contract = models.DateTimeField(blank=True, null=True, verbose_name=('Firma de contrato'))
     traffic_light = models.IntegerField(default=2, choices=TRAFFIC_LIGHT_CHOICES, verbose_name=('semaforo'))
     img_traffic_light = models.ForeignKey(TrafficLight, related_name="semaforo", blank=True, null=True, on_delete=models.CASCADE)
     official = models.CharField(max_length=200,blank=True, null=True, verbose_name=('funcionario'))
@@ -56,6 +59,9 @@ class Work(models.Model):
     constructor2 = models.CharField(max_length=200, blank=True, null=True, verbose_name=('constructoras'))
     constructor3 = models.CharField(max_length=200, blank=True, null=True, verbose_name=('constructoras'))
     constructor4 = models.CharField(max_length=200, blank=True, null=True, verbose_name=('constructoras'))
+    entrepreneur = models.CharField(max_length=200, blank=True, null=True, verbose_name=('Empresario'))
+    legal_representative = models.CharField(max_length=200, blank=True, null=True, verbose_name=('REPRESENTANTE LEGAL'))
+    order_gob = models.CharField(max_length=200, blank=True, null=True, verbose_name=('orden de gobierno'))
     contracts = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts1 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))
     contracts2 = models.FileField(upload_to='contracts/%Y-%m-%d/', blank=True, null=True, verbose_name=('contratos y licitaciones'))

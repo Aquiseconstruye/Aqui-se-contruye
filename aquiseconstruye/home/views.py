@@ -34,7 +34,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         work_obj = Work.objects.all()
-        mexico = folium.Map(width='100%', height='100%', location=[24.17912575174476, -103.11313995196282], zoom_start=6)
+        mexico = folium.Map(width='100%', height='100%', location=[25.54389, -103.41898], zoom_start=12)
         
 
         for work in work_obj:
