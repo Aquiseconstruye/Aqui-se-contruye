@@ -15,7 +15,7 @@
 <style>
   .barra{
     margin-left:60%; 
-    font-family: 'Montserrat';
+    font-family: "Rubik", sans-serif;
   }
   .sem{
     color: black;
@@ -23,7 +23,7 @@
   @media (max-width: 425px){
     .barra{
     margin-left:0%; 
-    font-family: 'Montserrat';
+    font-family: "Rubik", sans-serif;
     
   }
   .sem{
@@ -56,7 +56,7 @@
           <br>
           <div class="col-12 d-flex flex-wrap align-items-stretch justify-content-center">
             {% for obras in filter.qs %}
-                  <div class="col-md-3 d-flex align-items-stretch">
+                  <div class="col-sm-6 col-md-4 d-flex align-items-stretch">
                     {% include 'card_obra.html' %}
                   </div>
               {%endfor%}

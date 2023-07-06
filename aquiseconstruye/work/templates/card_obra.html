@@ -10,7 +10,13 @@
   cursor: pointer;
   margin-left: 10%;
   margin-top: 5%;
+  font-family: "Rubik", sans-serif;
   
+}
+
+.card h3{
+  font-family: "Rubik", sans-serif;
+  font-size: 20px ;
 }
 
 .card p{
@@ -18,7 +24,7 @@
   color: #606060;
   font-weight: light;
   text-align: justify;
-  font-family: 'Covered By Your Grace', cursive;
+  font-family: "Rubik", sans-serif;
 }
 
 /* CARDS CONTENT SECTION */
@@ -53,8 +59,9 @@
 }
 
 .card-image{
-    height: 220px;
-    width: 300px;
+  width: 100%;
+    height: 300px;
+   
 }
 
 
@@ -84,26 +91,29 @@ a{
 @media (max-width: 425px){
   .card-image{
     height: 200px;
-    width: 250px;
+    width: 100%;
 }
     }
 
 </style>
 
 
-
+<div class="col">
 <a href='{% url 'obra:obra' slug=obras.slug %}'>
-  <div class="card" style='background-color:#fbfbfb;box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);margin-bottom:15px;'>
+  <div class="card" style='background-color:#fbfbfb;box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);margin-bottom:20%;'>
       <div style="width:100%">
           <img  class="card-image" src='{{obras.image.url}}' class="rounded">
       </div>
       
       <div style="height:200px; padding:0px 10px;" class="text-center ">
           <br>
-          <b>{{obras.name}}</b>
+          <h3>{{obras.name|truncatechars:20 }}</h3>
           <p>{{obras.address}}</p>
           <p>Número de obra {{obras.no_work}}</p>
           <p>Número de contrato {{obras.no_contract}}</p>
+          <br>
+          <br>
       </div>
   </div>
 </a>
+</div>
