@@ -1,7 +1,13 @@
 {% extends 'base.html' %} 
 {% load static %}
+{% block stylesheets %}
 <style>
-
+  .section {
+   margin-bottom: 10%;
+   border-radius: 20px;
+  background-color: #fff;
+  /*border: red 1px solid;*/
+}
 .btn-home{
   color:#e1ad02;
   text-align: center;
@@ -17,16 +23,90 @@
 a {
   text-decoration: none;
 }
+
+@media (max-width: 767px) {
+        #map-container {
+            width: 100%; /* Ajusta el ancho del contenedor del mapa para dispositivos móviles */
+            height: 500px; /* Ajusta la altura del contenedor del mapa para dispositivos móviles */
+            margin: 0; /* Elimina los márgenes del contenedor del mapa */
+            padding: 0;
+          }
+    }
+    
+        .logo-container {
+          width: 50%; 
+          height: 45%;
+        }
+        .content-logo{
+          background-color: #000000; 
+          margin-top: 10%; 
+          margin-bottom: 10%; 
+          border-radius: 20px;
+          height: 70%;
+        }
+
+
+  @media screen and (max-width: 768px) {
+      
+            .logo-container {
+              width: 70%; 
+          height: 65%;
+        }
+        .content-logo{
+          background-color: #000000; 
+          margin-top: 10%; 
+          margin-bottom: 10%; 
+          border-radius: 20px;
+          height: 100%;
+        }
+        }
+        @media (min-width: 768px) {
+        #map-container {
+            width: 100%; /* Ajusta el ancho del contenedor del mapa para dispositivos de escritorio */
+            height: 900px; /* Ajusta la altura del contenedor del mapa para dispositivos de escritorio */
+            margin: 0; /* Elimina los márgenes del contenedor del mapa */
+            padding: 0;
+          }
+    }
+
 </style>
+{% endblock%}
 
 {% block content %}
-
+<br>
+      <br>
+      <br>
 <div class="container">
-    <div class="row mt-4">
-        <div class="col-md-10 offset-md-1">
-            {{map|safe}}
-        </div>
+    <div class="row">
+      <br>
+      <br>
+      <br>
+      <div class="col-lg-12 text-center content-logo">
+        <img class="logo-container" src="{% static "LogoWeb.png" %}" alt='aqui se construye'>
+      </div>
+      <br>
+      <br>
+      <div class="section" >
+        {% for item in investigation %}
+              <br>
+              <h2>{{ item.title }}</h2>
+              <br>
+              <p>{{ item.introduccion }}</p>
+              <br>
+              <p>Ver investigación <a href='{%url 'investigacion'%}' target="_blank"><img class="arow" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></p>
+        {% endfor %}
+      </div>
+      <br>
+      <br>
+      <br>
+      <div id="map-container">
+        {{ map_html|safe }}
     </div>
+    
+    </div>
+
+    <br>
+    <br>
     <br>
     <br>
     {%if request.user.is_authenticated%}
@@ -37,4 +117,6 @@ a {
     src: url('fonts/if.ttf') format('truetype');">Toda la lista</a>
     {% endif %}
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+
 {% endblock %}

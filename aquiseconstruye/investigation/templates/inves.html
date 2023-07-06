@@ -1,0 +1,411 @@
+{%extends 'base.html'%}
+{% load i18n %}
+
+{%block stylesheets%}
+<style>
+.section {
+  height: 100vh;
+  background-color: #fff;
+  /*border: red 1px solid;*/
+}
+
+.rfa-wrapper {
+  font-family: "Rubik", sans-serif;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 16px;
+}
+
+.gfx {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+}
+/*-------------------------------------------------------*/
+
+/* Two Col Layout
+/*-------------------------------------------------------*/
+h2 {
+  font-weight: 700;
+  line-height: 0.82;
+  text-align: left;
+  color: #363636;
+}
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  color: #363636;
+}
+.two-col-layout-1 .body-copy-wrapper {
+  margin: 0;
+}
+.two-col-layout-1 .body-copy-wrapper p {
+  margin: 25px 0 0;
+  font-size: 14px;
+  line-height: 1.64;
+  letter-spacing: 0.1px;
+}
+/*-------------------------------------------------------*/
+
+/* Three Col Layout
+/*-------------------------------------------------------*/
+.three-col-layout-1 .body-copy-wrapper p {
+  margin: 25px 0 0;
+  font-size: 14px;
+  line-height: 1.64;
+  letter-spacing: 0.1px;
+}
+.three-col-layout-1 .body-copy-wrapper {
+  margin-top: 32px;
+}
+/* pullquote */
+.pullquote-wrapper {
+  width: 100%;
+  display: flex;
+}
+.quote-gfx {
+  height: 23px;
+}
+.close-quote {
+  margin-top: 22px;
+}
+.quote {
+  font-size: 19px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.by {
+  font-size: 14px;
+  margin: 15px 0 0;
+}
+.quote,
+.by {
+  font-weight: 500;
+}
+
+/*--------------------------
+
+     Media Queries 
+
+--------------------------*/
+/*    Mobile    */
+
+@media only screen and (min-width: 320px) {
+  /* 320 */
+
+  .layout-wrapper {
+    height: 100%;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Two Col Layout 1: 320
+	/*-------------------------------------------------------*/
+  .two-col-layout-1 .gfx {
+    height: 396px;
+    max-width: 445px;
+  }
+  h2 {
+    font-size: 55px;
+  }
+  .two-col-layout-1 h2 {
+    margin: 37px 0 0;
+  }
+  .two-col-layout-1 h3 {
+    margin: 15px 0 0;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Three Col Layout 1: 320
+	/*-------------------------------------------------------*/
+  .three-col-layout-1 .sm-gfx {
+    max-width: 425px;
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/detail__23_.0.jpg");
+    height: 390px;
+    margin-top: 83px;
+  }
+  /* pullquote: 320px */
+  .pullquote-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 59px;
+    margin-bottom: 57px;
+  }
+  .quote {
+    width: 265px;
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  /* 375 */
+  /*-------------------------------------------------------*/
+
+  /* Two Col Layout 1: 320
+	/*-------------------------------------------------------*/
+  .two-col-layout-1 .gfx {
+    height: 465px;
+  }
+  h2 {
+    font-size: 65px;
+  }
+}
+
+@media only screen and (min-width: 414px) {
+  /* 414 */
+}
+
+@media only screen and (min-width: 568px) {
+  /* 568 */
+}
+
+@media only screen and (min-width: 667px) {
+  /* 667px */
+}
+
+@media only screen and (min-width: 736px) {
+  /* 736px */
+}
+
+@media only screen and (min-width: 768px) {
+  /* 768 */
+
+  .layout-wrapper {
+    height: auto;
+    justify-content: center;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Two Col Layout 1: 768
+	/*-------------------------------------------------------*/
+  .content-wrapper {
+    width: 320px;
+    margin-left: 45px;
+  }
+  .two-col-layout-1 .gfx {
+    width: 347px;
+    height: 475px;
+  }
+  .two-col-layout-1 h2 {
+    margin: 0;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Three Col Layout 1: 768
+	/*-------------------------------------------------------*/
+  .three-col-layout-1 .sm-gfx {
+    width: 425px;
+    height: 490px;
+  }
+  .three-col-layout-1 .content-grp {
+    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  /* pullquote: 1024px */
+  .pullquote-wrapper {
+    width: 287px;
+    justify-content: center;
+    grid-row-start: 1;
+  }
+  .three-col-layout-1 .body-copy-wrapper {
+    padding: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+  .three-col-layout-1 .body-copy-wrapper p {
+    column-count: 2;
+    column-gap: 78px;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+  }
+}
+
+/*    Desktop    */
+
+@media only screen and (min-width: 1024px) {
+  /* 1024 */
+  .layout-wrapper {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Two Col Layout 1: 1024
+	/*-------------------------------------------------------*/
+  .content-wrapper {
+    width: 383px;
+    margin-left: 45px;
+  }
+  .two-col-layout-1 .gfx {
+    height: 610px;
+  }
+  .two-col-layout-1 h2 {
+    margin: 37px 0 0;
+  }
+  /*-------------------------------------------------------*/
+
+  /* Three Col Layout 1: 1024
+	/*-------------------------------------------------------*/
+  .three-col-layout-1 .lg-gfx {
+    
+    width: 100%;
+    max-width: 917.1px;
+    height: 475px;
+  }
+  .three-col-layout-1 .content-grp {
+    justify-content: center;
+    grid-template-rows: 320px 155px 370px auto;
+    grid-template-columns: 286px 139px minmax(auto, 780px);
+    justify-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .three-col-layout-1 .body-copy-wrapper {
+    padding: 0 50px 0 50px;
+    grid-row-start: 3;
+    grid-row-end: 5;
+    grid-column-start: 3;
+    grid-column-end: 4;
+  }
+  .three-col-layout-1 .body-copy-wrapper p {
+    width: 100%;
+    column-count: auto;
+  }
+  /* pullquote: 1024px */
+  .pullquote-wrapper {
+    justify-content: end;
+  }
+  .three-col-layout-1 .sm-gfx {
+    margin-top: 30px;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    z-index: 1;
+  }
+  .three-col-layout-1 .lg-gfx {
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+}
+
+@media only screen and (min-width: 1140px) {
+  /* 1140 */
+
+  .three-col-layout-1 .body-copy-wrapper p {
+    column-count: 2;
+    column-gap: 50px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  /* 1440 */
+}
+
+@media only screen and (min-width: 1662px) {
+  /* 1662px */
+}
+</style>
+{%endblock %}
+
+
+{%block content%}
+<div class="container">
+<div id="fullpage" class="rfa-wrapper">
+    <div class="section">
+      <div class="layout-wrapper two-col-layout-1">
+        {% for item in investigation %}
+            {% if item.img %}
+                <div class="gfx" style=" background-image: url('{{item.img.url}}');"></div>
+            {% else %}
+                <div class="gfx" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/black-panther--1-cover.jpeg');"></div>
+            {% endif %}
+            
+        {% endfor %}
+        
+        <div class="content-wrapper">
+            {% for item in investigation %}
+            <h2>{{ item.title }}</h2>
+            {% endfor %}
+            {% for item in investigation %}
+                    <p class="by">&ndash; 
+                {{ item.by }}</p>
+                    {% endfor %}
+          <div class="body-copy-wrapper">
+            {% for item in investigation %}
+                <p>{{ item.seccion1 }}</p>
+                {% endfor %}
+                {% for item in investigation %}
+                <p>{{ item.seccion2 }}</p>
+                {% endfor %}
+                {% for item in investigation %}
+                <p>{{ item.seccion3 }}</p>
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="layout-wrapper three-col-layout-1">
+        <div class="content-grp">
+          
+          {% for item in investigation %}
+            {% if item.img1 %}
+                <div class="gfx sm-gfx" style=" background-image: url('{{item.img1.url}}');"></div>
+            {% else %}
+                <div class="gfx sm-gfx" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/detail__23_.0.jpg');"></div>
+            {% endif %}
+
+          {% endfor %}
+
+          {% for item in investigation %}
+            {% if item.img1 %}
+                <div class="gfx lg-gfx" style=" background-image: url('{{item.img1.url}}');"></div>
+            {% else %}
+                <div class="gfx lg-gfx" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/the-black-panther-film-marvel.jpg');"></div>
+            {% endif %}
+            
+        {% endfor %}
+          <aside class="pullquote-wrapper">
+            <div class="open-quote quote-gfx">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34.68" height="22.91" viewBox="0 0 34.68 22.91">
+                                    <path id="" data-name="“" d="M4310.08 1607.22h7.71q3.015 0 3.37-3.5l2.66-16.87a2.1 2.1 0 0 0-.31-1.81 1.769 1.769 0 0 0-1.5-.72h-3.74a3.13 3.13 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.756 1.756 0 0 0 1.39.61zm18.92 0h7.71q3.015 0 3.38-3.5l2.65-16.87a2.128 2.128 0 0 0-.3-1.81 1.788 1.788 0 0 0-1.51-.72h-3.74a3.147 3.147 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.77 1.77 0 0 0 1.39.61z" transform="translate(-4308.16 -1584.31)" fill-rule="evenodd"/>
+                                  </svg>
+            </div>
+                {% for item in investigation %}
+                    <p class="quote">{{ item.appointment }}</p>
+                {% endfor %}
+                {% for item in investigation %}
+                    <p class="by">&ndash; 
+                {{ item.name_appointment }}</p>
+                    {% endfor %}
+            <div class="close-quote quote-gfx">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34.65" height="22.91" viewBox="0 0 34.65 22.91">
+                                    <path id="" data-name="”" d="M4310.04 1818.22h3.74a3.1 3.1 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.8 1.8 0 0 0-1.39-.6h-7.71q-2.9 0-3.38 3.49l-2.65 16.88a2.106 2.106 0 0 0 .3 1.8 1.783 1.783 0 0 0 1.51.73zm18.92 0h3.74a3.083 3.083 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.774 1.774 0 0 0-1.38-.6h-7.72q-2.9 0-3.37 3.49l-2.65 16.88a2.073 2.073 0 0 0 .3 1.8 1.752 1.752 0 0 0 1.5.73z" transform="translate(-4308.16 -1795.31)" fill-rule="evenodd"/>
+                                  </svg>
+            </div>
+          </aside>
+          <div class="body-copy-wrapper">
+            {% for item in investigation %}
+                <p>{{ item.seccion4 }}</p>
+                {% endfor %}
+                {% for item in investigation %}
+                <p>{{ item.seccion5 }}</p>
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+{%endblock%}

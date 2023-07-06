@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'work.apps.WorkConfig',
     'team.apps.TeamConfig',
     'survey.apps.SurveyConfig',
+    'investigation.apps.InvestigationConfig',
 
     'bootstrap4',
      "django_s3_storage",
@@ -167,3 +168,5 @@ MEDIA_URL = '/media/'
 
 
 AUTH_USER_MODEL = 'users.User'
+
+MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoicGVybGFtZXRyZXRyZWZlNjY2IiwiYSI6ImNsamZzeXdhZDAydzgza3A1aHlrODg4NmUifQ.VIV2hMwbWlCmHKv1abv2ww'

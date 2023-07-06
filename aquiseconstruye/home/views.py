@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 import folium
 from work.models import Work
-
+from django.conf import settings
 from django.urls import reverse
 from django.views.generic import ListView
 from geopy.geocoders import Nominatim
@@ -14,13 +14,14 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from ipware import get_client_ip
 from datetime import datetime, timedelta
-
+import plotly.graph_objects as go
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import io
 import base64
-
+from plotly.offline import plot
 import datetime
+from investigation.models import *
 
 
 class HomeView(ListView):
@@ -34,80 +35,71 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         work_obj = Work.objects.all()
-        mexico = folium.Map(width='100%', height='100%', location=[25.54389, -103.41898], zoom_start=12)
-        
+        investigation = Investigation.objects.all()
+
+        mapbox_access_token = settings.MAPBOX_ACCESS_TOKEN
+
+        fig = go.Figure()
 
         for work in work_obj:
-           
-
-            url_absoluta = reverse('obra:obra', args=[work.slug])
-
-           
-            html_amarillo="""
-                <center><h2>{}</h2></center>
-                    <br>
-                    <div><img src="https://i.ibb.co/zsTPVdL/monedas.png" alt="logo" width=60 height=70 ></div>
-                    <center><h3 style="margin-top:-50px">${}0</h3></center>
-                    <br>
-                    <h3 >Ver mas</h3>
-                    <center><a href='{}' target="_blank"><img class="arow"style="margin-top:-50px" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></center>
-                """.format(work.name, work.price, url_absoluta)
-               
-                
-                
-      
-
-            html_rojo="""
-                    <center><h2>{}</h2></center>
-                    <br>
-                    <div><img src="https://i.ibb.co/zsTPVdL/monedas.png" alt="logo" width=60 height=70 ></div>
-                    <center><h3 style="margin-top:-50px">${}0</h3></center>
-                    <br>
-                    <h3 >Ver mas</h3>
-                    <center><a href='{}' target="_blank"><img class="arow"style="margin-top:-50px" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></center>
-                """.format(work.name, work.price, url_absoluta)
-
-            html_verde="""
-                <center><h2>{}</h2></center>
-                    <br>
-                    <div><img src="https://i.ibb.co/zsTPVdL/monedas.png" alt="logo" width=60 height=70 ></div>
-                    <center><h3 style="margin-top:-50px">${}0</h3></center>
-                    <br>
-                    <h3 >Ver mas</h3>
-                    <center><a href='{}' target="_blank"><img class="arow"style="margin-top:-50px" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></center>
-                """.format(work.name, work.price, url_absoluta)
-           
-            popup_amarillo = folium.Popup(folium.Html(html_amarillo, script=True), max_width=450,min_width=450)
-            popup_rojo = folium.Popup(folium.Html(html_rojo, script=True), max_width=450,min_width=450)
-            popup_verde = folium.Popup(folium.Html(html_verde, script=True), max_width=450,min_width=450)
-
-            latitude = work.latitude
-            longitude = work.longitude
-            work_address = work.address
+            color = ""
             if work.traffic_light == 1:
-                folium.Marker([latitude, longitude],
-                            popup=popup_rojo,
-                          icon=folium.Icon(color='red', icon='close', prefix='fa')
-                          ).add_to(mexico)
+                color = "red"
+            elif work.traffic_light == 3:
+                color = "green"
             elif work.traffic_light == 2:
-                folium.Marker([latitude, longitude],
-                            popup=popup_amarillo,
-                          icon=folium.Icon(color='orange', icon='exclamation-triangle', prefix='fa')
-                          ).add_to(mexico)
+                color = "yellow"
             else:
-                folium.Marker([latitude, longitude],
-                            popup=popup_verde,
-                          icon=folium.Icon(color='green', icon='check', prefix='fa')
-                          ).add_to(mexico)
-                
-
+                color = "blue"
             
-    
-  
+            symbol=""
+            if work.type_work == 1:
+                symbol = "park"
+            elif work.type_work == 2:
+                symbol = "harbor"
+            elif work.type_work == 3:
+                symbol = "bridge"
+            elif work.type_work == 4:
+                symbol = "bus"
+            elif work.type_work == 5:
+                symbol = "monument"
+            elif work.type_work == 6:
+                symbol = "wetland"
+            
+            
 
-        mexico = mexico._repr_html_()
+            fig.add_trace(go.Scattermapbox(
+                lat=[work.latitude],
+                lon=[work.longitude],
+                mode='markers',
+                marker=go.scattermapbox.Marker(
+                    size=10,
+                    color=color,  # Asigna el color correspondiente según el campo "traffic_light"
+                    symbol= symbol
+                ),
+                text=[work.name],
+            ))
+
+        fig.update_layout(
+            hovermode='closest',
+            margin=dict(t=30, l=0, r=0, b=0),
+            mapbox=dict(
+                accesstoken=mapbox_access_token,
+                bearing=0,
+                center=go.layout.mapbox.Center(
+                    lat=25.54389,
+                    lon=-103.41898
+                ),
+                pitch=0,
+                zoom=10
+            ),
+        )
+
+        # Genera el código HTML del mapa
+        map_html = plot(fig, output_type='div')
+
         context = {
-            'map': mexico,
+            'map_html': map_html, 'investigation':investigation
         }
 
         return context

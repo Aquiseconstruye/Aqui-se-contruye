@@ -12,6 +12,14 @@ class TrafficLight(models.Model):
 TRAFFIC_LIGHT_CHOICES = ((1,'Rojo'),
                     (2,'Amarillo'),
                     (3,'Verde'))
+
+
+WORK_CHOICES = ((1,'Parque'),
+                    (2,'Calle'),
+                    (3,'Cruce'),
+                    (4,'Construccion'),
+                    (5,'Monumento'),
+                    (6,'Activacion'))
                     
 
 class Work(models.Model):
@@ -51,6 +59,7 @@ class Work(models.Model):
     start_of_work = models.DateTimeField(blank=True, null=True, verbose_name=('inicio de obra'))
     signing_of_contract = models.DateTimeField(blank=True, null=True, verbose_name=('Firma de contrato'))
     traffic_light = models.IntegerField(default=2, choices=TRAFFIC_LIGHT_CHOICES, verbose_name=('semaforo'))
+    type_work = models.IntegerField(default=1, choices=WORK_CHOICES, verbose_name=('Tipo de obra'))
     img_traffic_light = models.ForeignKey(TrafficLight, related_name="semaforo", blank=True, null=True, on_delete=models.CASCADE)
     official = models.CharField(max_length=200,blank=True, null=True, verbose_name=('funcionario'))
     dependence = models.CharField(max_length=500, blank=True, null=True,verbose_name=('dependencia'))

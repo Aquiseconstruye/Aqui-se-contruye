@@ -4,15 +4,21 @@
 .card
 {
   background-color: #fafafa;
-  height: 230px;
-  width: 80%;
   margin-bottom: 12px;
   border-radius: 4px;
-  border: 3px solid black;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   margin-left: 10%;
   margin-top: 5%;
+  
+}
+
+.card p{
+  text-align: justify;
+  color: #606060;
+  font-weight: light;
+  text-align: justify;
+  font-family: 'Covered By Your Grace', cursive;
 }
 
 /* CARDS CONTENT SECTION */
@@ -22,8 +28,7 @@
   width: 76%;
   left: 250px;
   top: 30px;
-  text-align: justify;
-  font-family: 'Covered By Your Grace', cursive;
+  
 }
 
 #containText h3{
@@ -48,8 +53,8 @@
 }
 
 .card-image{
-    height: 200px;
-    width: 200px;
+    height: 220px;
+    width: 300px;
 }
 
 
@@ -72,39 +77,33 @@
     top: -20%;
     left: 70%;
 }
+a{
+  color: black!important;
+}
+
+@media (max-width: 425px){
+  .card-image{
+    height: 200px;
+    width: 250px;
+}
+    }
 
 </style>
 
 
-<div class="container text-center">
-    
-    <div class="row">
-        <ul class="cards">
-            <li>
-            <div class="card">
-                    <div class="face">
-                        {% if obras.image%}
-                            <img src='{{obras.image.url}}' class="card-image">
-                        {%endif%}
-                    </div>
-                    <div id="containText">
-                        <h3>{{obras.name}}</h3><br>
-                        <p>{{obras.address}}</p>
-                        <br>
-                        <p>Número de obra {{obras.no_work}}</p>
-                        <br>
-                        <p>Número de contrato {{obras.no_contract}}</p>
-                        <br>
-                    </div>
-                    <div class="extra">
-                    <p><strong>Precio</strong> ${{obras.price}}.0</p>
-                    <a href="{% url 'obra:obra' slug=obras.slug %}"><img class="arow" src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png" ></a>
-                        
-                    </div>
-            </div>
-                
-            </li>
-        </ul>
-    </div>
 
-</div>
+<a href='{% url 'obra:obra' slug=obras.slug %}'>
+  <div class="card" style='background-color:#fbfbfb;box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);margin-bottom:15px;'>
+      <div style="width:100%">
+          <img  class="card-image" src='{{obras.image.url}}' class="rounded">
+      </div>
+      
+      <div style="height:200px; padding:0px 10px;" class="text-center ">
+          <br>
+          <b>{{obras.name}}</b>
+          <p>{{obras.address}}</p>
+          <p>Número de obra {{obras.no_work}}</p>
+          <p>Número de contrato {{obras.no_contract}}</p>
+      </div>
+  </div>
+</a>
