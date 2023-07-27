@@ -1,6 +1,25 @@
 {% extends 'base.html' %} 
 {% load static %}
-
+{%block stylesheets%}
+<style>
+	.title {
+		font-family: 'Covered By Your Grace', cursive;
+		color: #e1ad02;
+	text-align: center;
+	letter-spacing: 10px;
+    font-size:9rem;
+	}
+	@media (max-width: 425px){
+.title {
+		font-family: 'Covered By Your Grace', cursive;
+		color: #e1ad02;
+	text-align: center;
+	letter-spacing: 10px;
+    font-size:3rem;
+	}
+}
+</style>
+{%endblock stylesheets%}
 
 {% block content %}
 
@@ -13,8 +32,18 @@
 	<div>
 		
 	<div>
-		<h5>Followers</h5>
-		{% include 'card.html' %}
+		<div class="container " style="background-color: black; border-radius:20px;">
+			<h5 class="title">Followers</h5>
+		</div>
+		
+		<div class="col-12 d-flex flex-wrap align-items-stretch justify-content-center">
+            {% for relationship in relationships %}
+                        <div class="col-sm-6 col-md-4 d-flex align-items-stretch">
+                            {% include 'card.html' %}
+                        </div>
+            {% endfor %}
+            
+          </div>
 
 	</div>
 	

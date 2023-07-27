@@ -166,24 +166,27 @@ class ProfileView(View):
 		return render(request, 'profile.html', locals())
 
 
-def follow(request):
-	current_user = request.user
-	to_work = Work.objects.get()
-	to_user_id = to_work
-	rel = Relationship(user=current_user, work=to_user_id)
-	rel.save()
-	messages.success(request, f'sigues a {to_work}')
-	return redirect('profile')
+def follow(request, id):
+    current_user = request.user
+    to_work = get_object_or_404(Work, id=id)
+    rel = Relationship(user=current_user, work=to_work)
+    rel.save()
+    messages.success(request, f'Sigues a {to_work}')
+    return redirect('profile')
 
 
-def unfollow(request):
-	current_user = request.user
-	to_work = Work.objects.get()
-	to_user_id = to_work
-	rel = Relationship.objects.filter(user=current_user.id, work=to_user_id).get()
-	rel.delete()
-	messages.success(request, f'Ya no sigues a {to_work}')
-	return redirect('profile')
+def unfollow(request, id):
+    current_user = request.user
+    to_work = get_object_or_404(Work, id=id)
+    rel = Relationship.objects.filter(user=current_user, work=to_work).first()
+
+    if rel:
+        rel.delete()
+        messages.success(request, f'Ya no sigues a {to_work}')
+    else:
+        messages.error(request, f'No sigues a {to_work}')
+
+    return redirect('profile')
 
 
 class ProfileFormView(View):

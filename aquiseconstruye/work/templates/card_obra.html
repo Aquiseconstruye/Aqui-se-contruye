@@ -84,9 +84,6 @@
     top: -20%;
     left: 70%;
 }
-a{
-  color: black!important;
-}
 
 @media (max-width: 425px){
   .card-image{
@@ -99,15 +96,20 @@ a{
 
 
 <div class="col">
-<a href='{% url 'obra:obra' slug=obras.slug %}'>
+<a href='{% url 'obra:obra' slug=obras.slug %}' style="color: black !important;">
   <div class="card" style='background-color:#fbfbfb;box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);margin-bottom:20%;'>
       <div style="width:100%">
-          <img  class="card-image" src='{{obras.image.url}}' class="rounded">
+        {% if obras.image%}
+        <img  class="card-image" src='{{obras.image.url}}' class="rounded">
+        {%else%}
+        <img  class="card-image" src='https://i.ibb.co/tmytdby/35557.jpg' class="rounded">
+        {%endif%}
+          
       </div>
       
       <div style="height:200px; padding:0px 10px;" class="text-center ">
           <br>
-          <h3>{{obras.name|truncatechars:20 }}</h3>
+          <h3>{{obras.alias|truncatechars:20 }}</h3>
           <p>{{obras.address}}</p>
           <p>Número de obra {{obras.no_work}}</p>
           <p>Número de contrato {{obras.no_contract}}</p>

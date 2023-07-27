@@ -1,0 +1,33 @@
+<style>
+
+    .logo-container {
+      width: 50%; 
+      height: 45%;
+    }
+    .content-logo{
+      background-color: #000000; 
+      margin-top: 10%; 
+      margin-bottom: 10%; 
+      border-radius: 20px;
+      height: 70%;
+    }
+
+    @media screen and (max-width: 768px) {
+      
+      .logo-container {
+        width: 70%; 
+    height: 65%;
+  }
+  .content-logo{
+    background-color: #000000; 
+    margin-top: 10%; 
+    margin-bottom: 10%; 
+    border-radius: 20px;
+    height: 100%;
+  }
+  }
+</style>
+
+<div class="col-lg-12 text-center content-logo">
+    <img class="logo-container" src="{% static "LogoWeb.png" %}" alt='aqui se construye'>
+  </div>

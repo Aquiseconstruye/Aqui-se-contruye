@@ -25,10 +25,46 @@ from users.models import Relationship
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import DetailView
-
-
+from django.http import HttpResponse
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+import locale
 
 # Create your views here.
+
+def download_files(request, slug):
+    obra = get_object_or_404(Work, slug=slug)
+    response = HttpResponse(content_type='application/zip')
+    response['Content-Disposition'] = f'attachment; filename="{obra.slug}.zip"'
+
+    # Define la ruta absoluta al directorio de archivos
+    files_dir = os.path.join(settings.MEDIA_ROOT)
+
+    # Crea un archivo ZIP que contendrá todos los archivos asociados a la obra
+    zip_file = zipfile.ZipFile(response, 'w')
+
+    # Procesar los campos pasados por la URL
+    fields = request.GET.getlist('fields')
+
+    if not fields:
+        # Si no se especifican campos, incluir todos los campos de archivos
+        fields = [f.name for f in obra._meta.fields if isinstance(f, models.FileField)]
+
+    for field_name in fields:
+        field = getattr(obra, field_name)
+        if field:
+            field_files_dir = os.path.join(files_dir, field.field.upload_to)
+            for filename in os.listdir(field_files_dir):
+                file_path = os.path.join(field_files_dir, filename)
+                zip_file.write(file_path, os.path.basename(file_path))  # Usar os.path.basename para obtener solo el nombre del archivo
+
+    # Cierra el archivo ZIP
+    zip_file.close()
+
+    return response
+
+
+
 class ObrasView(View):
     @property
     def obras(self):
@@ -39,7 +75,6 @@ class ObrasView(View):
      
         obras_filter = ObrasFilter(request.GET, queryset=obras)
         return render(request, 'obras.html', {'filter': obras_filter})
-
 
 
 class ObraDetailView(DetailView):
@@ -61,16 +96,28 @@ class ObraDetailView(DetailView):
         today = date.today()
         now = timezone.now().date()
         start_date = obra.start_of_work.date() if obra.start_of_work else obra.created_at.date()
-        completion_date = obra.term.date() if obra.term else now
+        completion_date = obra.term.date() if obra.term else None
+        conclution_date = obra.conclution.date() if obra.conclution else None
 
-        # Calcular duración y días restantes
-        duration = (completion_date - start_date).days
-        days_passed = (now - start_date).days
-        dias_restantes = (completion_date - now).days if obra.term else 0
-        print(dias_restantes)
-        print(days_passed)
+        # Calcular días pasados, días restantes y días de atraso
+        if completion_date and conclution_date:
+            days_passed = (conclution_date - start_date).days
+            dias_restantes = (completion_date - now).days if now <= completion_date else 0
+            dias_atraso = (conclution_date - obra.term.date()).days if conclution_date > obra.term.date() else 0
+        elif completion_date and not conclution_date:
+            days_passed = (now - start_date).days
+            dias_restantes = (completion_date - now).days if now <= completion_date else 0
+            dias_atraso = 0  # No hay atraso si no hay fecha de conclusión
+        else:
+            days_passed = (now - start_date).days
+            dias_restantes = (completion_date - now).days if completion_date and now <= completion_date else None
+            dias_atraso = 0  # No hay atraso si no hay fecha de plazo ni fecha de conclusión
 
-        # Calcular color de la gráfica
+        # Calcular el porcentaje completado
+        duration = (completion_date - start_date).days if completion_date else None
+        porcentaje_completado = (days_passed / duration) * 100 if duration else 0
+
+        # Calcular el color de la barra de progreso
         if obra.term:
             if dias_restantes < 0:
                 color = 'gray'
@@ -88,23 +135,41 @@ class ObraDetailView(DetailView):
             else:
                 color = 'red'
 
-        context['duracion'] = duration
         context['dias_pasados'] = days_passed
         context['dias_restantes'] = dias_restantes
+        context['dias_atraso'] = dias_atraso
+        context['porcentaje_completado'] = porcentaje_completado
         context['color'] = color
 
+
+
+        print(dias_restantes)
+        print(days_passed)
+        print(completion_date-start_date)
+        print(color)
+
         # Define los datos de la gráfica
-        data = [go.Bar(            x=[dias_restantes if obra.term2 else days_passed],
-            y=[obra.name],
-            orientation='h',
-            marker=dict(color=color)
-            )]
+        if dias_restantes is not None:
+            x = [dias_restantes]
+            x_label = 'Días Restantes'
+        else:
+            x = [days_passed]
+            x_label = 'Días Transcurridos'
+
+        data = [
+            go.Bar(
+                x=x,
+                y=[obra.alias],
+                orientation='h',
+                marker=dict(color=color)
+            )
+        ]
 
         # Define el diseño de la gráfica
         layout = go.Layout(
             title='',
             xaxis=dict(
-                title='Días Restantes' if obra.term else 'Días Transcurridos',
+                title=x_label,
                 range=[0, 365]
             ),
             yaxis=dict(
@@ -119,34 +184,28 @@ class ObraDetailView(DetailView):
         div = opy.plot(fig, auto_open=False, output_type='div')
         context['graph'] = div
 
+         # Lista de campos para la descarga
+        download_fields = [
+            'contracts', 'contracts1', 'contracts2', 'contracts3', 'contracts4', 'contracts5', 'contracts6', 'contracts7', 'contracts8', 'contracts9', 'contracts10',
+            'contracts11', 'contracts12', 'contracts13', 'contracts14', 'contracts15', 'contracts16', 'contracts17', 'contracts18', 'contracts19', 'contracts20',
+            'contracts21', 'contracts22', 'contracts23', 'contracts24', 'contracts25', 'contracts26', 'contracts27', 'contracts28', 'contracts29', 'contracts30',
+            'contracts31', 'contracts32', 'contracts33', 'contracts34', 'contracts35', 'contracts36', 'contracts37', 'contracts38', 'contracts39', 'contracts40',
+            'contracts41', 'contracts42', 'contracts43', 'contracts44', 'contracts45', 'contracts46', 'contracts47', 'contracts48', 'contracts49', 'contracts50',
+            
+            # Añade todos los demás campos necesarios
+        ]
+
+        # Formatear el campo price con comas como separadores de miles
+        if obra.price:
+            formatted_price = locale.format_string("%0.2f", obra.price, grouping=True)
+        else:
+            formatted_price = None
+
+        # Agregar el campo formateado al contexto
+        context['formatted_price'] = formatted_price
+
+        context['download_fields'] = download_fields
+
         context['is_following'] = is_following
 
         return context
-
-    def download_files(self, fields=None):
-        obra = self.get_object()
-        response = HttpResponse(content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{obra.slug}.zip"'
-
-        # Define la ruta absoluta al directorio de archivos
-        files_dir = os.path.join(settings.MEDIA_ROOT, str(obra.pk))
-
-        # Crea un archivo ZIP que contendrá todos los archivos asociados a la obra
-        zip_file = zipfile.ZipFile(response, 'w')
-
-        if not fields:
-            # Si no se especifican campos, incluir todos los campos de archivos
-            fields = [f.name for f in obra._meta.fields if isinstance(f, models.FileField)]
-
-        for field_name in fields:
-            field = getattr(obra, field_name)
-            if field:
-                field_files_dir = os.path.join(files_dir, field.field.upload_to)
-                for filename in os.listdir(field_files_dir):
-                    file_path = os.path.join(field_files_dir, filename)
-                    zip_file.write(file_path, filename)
-
-        # Cierra el archivo ZIP
-        zip_file.close()
-
-        return response

@@ -1,316 +1,203 @@
-<style>
-    .container-gallery {
-      width: 1000px;
-      margin: 0 auto;
-    }
-  
-    .gallery {
-      width: 100%;
-      overflow: hidden;
-    }
-  
-    .list-img {
-      display: flex;
-      overflow: hidden;
-      width: 100%;
-      padding-top: 20px;
-    }
-  
-    .list-img img {
-      width: 200px;
-      height: 100px;
-      padding-right: 20px;
-      cursor: pointer;
-    }
-  
-    .main-img {
-      display: flex;
-      position: relative;
-      width: 100%;
-    }
-  
-    .main-img img {
-      width: 100%;
-      height: 545px;
-    }
-  
-    .col-main {
-      position: relative;
-      width: 100%;
-    }
-  
-    .main-img .item-img {
-      min-width: 100%;
-    }
-  
-    .img-thumbnail {
-      display: flex;
-      position: relative;
-      width: 100%;
-    }
-  
-    @media screen and (max-width: 992px) {
-      .container-gallery {
-        width: 750px;
-      }
-  
-      .list-img img {
-        width: 150px;
-        height: 75px;
-      }
-    }
-  
-    @media screen and (max-width: 768px) {
-      .container-gallery {
-        width: 500px;
-      }
-  
-      .list-img img {
-        width: 120px;
-        height: 60px;
-      }
-  
-      .main-img img {
-        height: 400px;
-      }
-    }
-  
-    @media screen and (max-width: 576px) {
-      .container-gallery {
-        width: 350px;
-      }
-  
-      .list-img img {
-        width: 100px;
-        height: 50px;
-        padding-right: 10px;
-      }
-  
-      .main-img img {
-        height: 300px;
-      }
-    }
+{% load static %}
 
-    @media screen and (max-width: 425px) {
-      .container-gallery {
-        width: 350px;
-      }
-  
-      .list-img img {
-        width: 100px;
-        height: 50px;
-        padding-right: 10px;
-      }
-  
-      .main-img img {
-        height: 300px;
-      }
-    }
+{%block extrahead%}
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.css" />
+{%endblock %}
+
+<style>
+
+
+.gallery {
+  max-width: 800px;
+  height: 530px;
+  position: relative;
+  margin: auto;
+}
+
+.gallery-image{
+  width: 100%;
+  height:500px;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  background-color: rgba(0,0,0,0.4);
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position "next button" rechts */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+
+.dot {
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin: 0 2px;
+  background-color: rgb(40, 40, 40);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: lightgrey;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+/* fade für Bilder */
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
   </style>
 
 {% block content %}
 
-
-<div class="container-gallery">
-	
-  <div class="gallery">
-    
-    <div class="main">
-
-    <div class="main-img">
-      
-      <div class="item-img active" data-slide="1"><a href="#">
-            {% if obra.image%}
-                <img src='{{obra.image.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="2"><a href="#">
-            {% if obra.image1%}
-                <img src='{{obra.image1.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="3"><a href="#">
-              {% if obra.image2%}
-                <img src='{{obra.image2.url}}'>
-              {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="4"><a href="#">
-            {% if obra.image3%}
-                <img src='{{obra.image3.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="5"><a href="#">
-            {% if obra.image4%}
-                <img src='{{obra.image4.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="6"><a href="#">
-            {% if obra.image5%}
-                <img src='{{obra.image5.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="7"><a href="#">
-            {% if obra.image6%}
-                <img src='{{obra.image6.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="8"><a href="#">
-            {% if obra.image7%}
-                <img src='{{obra.image7.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img active" data-slide="9"><a href="#">
-            {% if obra.image8%}
-                <img src='{{obra.image8.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="10"><a href="#">
-            {% if obra.image9%}
-                <img src='{{obra.image9.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="11"><a href="#">
-              {% if obra.image10%}
-                <img src='{{obra.image10.url}}'>
-              {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="12"><a href="#">
-          {% if obra.image11%}
-              <img src='{{obra.image11.url}}'>
-          {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="13"><a href="#">
-            {% if obra.image12%}
-                <img src='{{obra.image12.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="14"><a href="#">
-            {% if obra.image13%}
-                <img src='{{obra.image13.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="15"><a href="#">
-            {% if obra.image14%}
-                <img src='{{obra.image14.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="16"><a href="#">
-           {% if obra.image15%}
-              <img src='{{obra.image15.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="17"><a href="#">
-        {% if obra.image16%}
-            <img src='{{obra.image16.url}}'>
-        {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="18"><a href="#">
-            {% if obra.image17%}
-                <img src='{{obra.image17.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="19"><a href="#">
-            {% if obra.image18%}
-                <img src='{{obra.image18.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="20"><a href="#">
-            {% if obra.image19%}
-                <img src='{{obra.image19.url}}'>
-            {%endif%}
-      </a></div>
-      <div class="item-img" data-slide="21"><a href="#">
-            {% if obra.image20%}
-                <img src='{{obra.image20.url}}'>
-            {%endif%}
-      </a></div>
-
-
-    </div><!--main-img-->
-
-
-    <div class="nutslide">
-         <span class="prev"><i class="fas fa-chevron-left"></i></span>
-         <span class="next"><i class="fas fa-chevron-right"></i></span>
-         </div>
-
-      </div><!--cot-1-->
+<div class="gallery">
   
-
+    {% if obra.image%}
+      <div class="slides">
+        <img class="gallery-image" src='{{obra.image.url}}'>
+      </div>
+    {%endif%} 
     
+    {% if obra.image1%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image1.url}}'>
+      </div>
+    {%endif%} 
+    {% if obra.image2%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image2.url}}' >
+      </div>
+    {%endif%}
+    {% if obra.image3%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image3.url}}'>
+      </div>
+    {%endif%} 
+    {% if obra.image4%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image4.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image5%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image5.url}}'>
+      </div>
+    {%endif%}  
+    {% if obra.image6%}
+      <div class="slides">
+        <img class="gallery-image" src='{{obra.image6.url}}' >
+      </div>
+    {%endif%} 
+
+    {% if obra.image6%}
+      <div class="slides">
+        <img class="gallery-image" src='{{obra.image6.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image7%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image7.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image8%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image8.url}}' >
+      </div>
+    {%endif%}
+    {% if obra.image9%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image9.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image10%}
+      <div class="slides">
+        <img src='{{obra.image10.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image11%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image11.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image12%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image12.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image13%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image13.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image14%}
+      <div class="slides">
+        <img class="gallery-image" src='{{obra.image14.url}}' >
+      </div>
+    {%endif%}
+    {% if obra.image15%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image15.url}}' >
+      </div>
+    {%endif%}
+    {% if obra.image16%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image16.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image17%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image17.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image18%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image18.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image19%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image19.url}}'>
+      </div>
+    {%endif%}
+    {% if obra.image20%}
+      <div class="slides">
+        <img  class="gallery-image" src='{{obra.image20.url}}'>
+      </div>
+    {%endif%}
+
 
   
-
-    <div class="list-img">
-      <div class="img-thumbnail">
-        {% if obra.image%}
-            <img src='{{obra.image.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image1%}
-            <img src='{{obra.image1.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image2%}
-            <img src='{{obra.image2.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image3%}
-            <img src='{{obra.image3.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image4%}
-            <img src='{{obra.image4.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image5%}
-            <img src='{{obra.image5.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image6%}
-            <img src='{{obra.image6.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image7%}
-            <img src='{{obra.image7.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image8%}
-            <img src='{{obra.image8.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image9%}
-            <img src='{{obra.image9.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image10%}
-            <img src='{{obra.image10.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image11%}
-            <img src='{{obra.image11.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image12%}
-            <img src='{{obra.image12.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image13%}
-            <img src='{{obra.image13.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image14%}
-            <img src='{{obra.image14.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image15%}
-            <img src='{{obra.image15.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image16%}
-            <img src='{{obra.image16.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image17%}
-            <img src='{{obra.image17.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image18%}
-            <img src='{{obra.image18.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image19%}
-            <img src='{{obra.image19.url}}' class="item-list">
-        {%endif%}
-        {% if obra.image20%}
-            <img src='{{obra.image20.url}}' class="item-list">
-        {%endif%}
-      </div><!--img-thumbnail-->
-    </div><!--list-img-->
-  </div><!--gallery-->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
+<br>
 
+  
 
 {% endblock %}
 
@@ -318,235 +205,47 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/scripts.js"></script>
 <script>
-$(function(){
+var slideIndex = 1;
+showSlides(slideIndex); //Funktionsaufruf
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
 
-		
-$('.item-list').click(function(){
 
-
-  $('.item-img').removeClass('active');	
-
-  $('.item-list').removeClass('active');
-
-  $(this).addClass('active');
-
-       
-
-  var index = $(this).index() + 1;
-
-  var index2 = $('.item-img:nth-child('+index+')').addClass('active');
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("slides"); //holt Elemente von HTML
+  var dots = document.getElementsByClassName("dot");
   
-
-  $('.main-img').animate({
-
-
-    left: 0 - index2.position().left
-
-  },500);
-
-
-  //Slide thumbnails
-  
-  
-
-  var test = $('.item-img.active').index()+1;
-
-
-  var a = $('.item-list:nth-child('+test+')');
-
-
-  $('.img-thumbnail').animate({
-
-
-  left: 0 - (a.position().left/2)
-
-  },300);
-
-
-
-
-  });
-
-
-
-
-  //click prev
-
-  function next(){
-
-
-                            var sau=$('.active').next();
-
-                            
-                            $('.item-img').removeClass('active');
-                            $('.item-list').removeClass('active');
-                              
-
-                            sau.addClass('active');
-
-                            
-                              
-                            if(sau.length==0){
-                              $('.main-img').animate({
-
-
-                              left: 0 - $('.item-img:first-child').position().left
-
-                              },500);
-
-                              $('.item-img:first-child').addClass('active');
-                              $('.item-list:first-child').addClass('active');
-
-                            }
-
-
-                            else{
-                              var hay = $('.item-img.active').attr('data-slide');
-
-
-                            var index5 = $('.item-img:nth-child('+hay+')').addClass('active');
-                            
-                              
-
-  $('.main-img').animate({
-
-
-                              left: 0 - index5.position().left
-
-                              },500);
-                            }
-
-    }
-
-
-
-
-  //Click prev
-
-  function prev(){
-
-
-        var sau=$('.active').prev();
-
-        
-        $('.item-img').removeClass('active');
-        $('.item-list').removeClass('active');
-        
-        
-
-
-        sau.addClass('active');
-
-        
-          
-        if(sau.length==0){
-          $('.main-img').animate({
-
-
-            left: 0 - $('.item-img:last-child').position().left
-
-            },500);
-
-            $('.item-img:last-child').addClass('active');
-            $('.item-list:last-child').addClass('active');
-
-        }
-
-        var hay = $('.item-img.active').attr('data-slide');
-
-        var index5 = $('.item-img:nth-child('+hay+')').addClass('active');
-
-        $('.main-img').animate({
-
-
-            left: 0 - index5.position().left
-
-          },500);
-
+  //Wechsel von Slide 3 zu Slide 1
+  if (n > slides.length) {
+    slideIndex = 1;
   }
-
-
-
-
-//auto run slide
-action =setInterval(function(){ 
-
-$('.next').trigger('click');
-
-
-}, 2500);
-
-//hover stop auto run slide
-
-$('.gallery').mouseover(function(){
-clearTimeout(action);
-
-});
-
-//rê chuột khuột khỏi slider sẽ tự động chạy trở lại
-
-$('.gallery').mouseout(function(){
-action =setInterval(function(){ 
-
-$('.next').trigger('click');
-
-
-}, 2000);
-
-});
-
-
-//click next
-
-$('.next').click(function(){
-
-next();//gọi hàm next vừa tạo ở trên
-
-var test = $('.item-img.active').index() + 1;
-
-
-var a = $('.item-list:nth-child('+test+')');
-
-
-$('.img-thumbnail').animate({
-
-
-left: 0 - (a.position().left/2)
-
-},500);
-
-
-                       
-
-});
-
-
-//click prev
-$('.prev').click(function(){
-
-prev();//gọi hàm prev vừa tạo ở trên
-
-var test = $('.item-img.active').index() + 1;
-
-
-var a = $('.item-list:nth-child('+test+')');
-
-
-$('.img-thumbnail').animate({
-
-
-left: 0 - (a.position().left/2)
-
-},500);
-
-
-});
-
-
-
-
-});
+  
+  //Wechsel von Slide 1 auf Slide 3
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  
+  
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  
+  
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+} 
 </script>
 {%endblock %}
 

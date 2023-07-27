@@ -2,20 +2,23 @@
 {% load i18n %}
 {%block title%} {% trans 'Ingresar' %} {%endblock%}
 
-{%block extrahead%}
-{%endblock%}
-
-{%block extrastyle%}
+{%block stylesheets%}
+<style>
+    .height{
+        height: 100vh!important;
+    }
+</style>
 {%endblock%}
 
 
 {%block content%}
+
 <div class="container">
-    <div class="row">
+    <div class="row"style='height: 100%;' >
         <div class="col-sm"></div>
-        <div class="col-sm">
-            <div style="margin-top:40px;margin-bottom:30px;text-align:center;">
-                <h2> Bienvenido </h2>
+        <div class="col-sm" >
+            <div style="margin-top:35%;margin-bottom:30px;text-align:center;">
+                <h2 style="font: size 35px;"> Bienvenido </h2>
             </div>
             <br>
             <br>
@@ -34,12 +37,11 @@
 				<button type="submit" id="submit" class="btn btn-dark " style="font-family:Covered By Your Grace; font-size:2rem;">login</button>
 
             </form>
-            <br><br>
         </div>
         <div class="col-sm"></div>
     </div>
 </div>
-<br><br>
+
 {%endblock%}
 
 {%block js%}

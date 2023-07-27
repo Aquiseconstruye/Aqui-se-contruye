@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'custom_user',
     'rest_framework',
     'rest_framework.authtoken',
+    'leaflet',
     
 
     #app

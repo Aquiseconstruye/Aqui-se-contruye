@@ -6,41 +6,38 @@
 
 
 {%block content%}
+<style>
+  .graficas{
+    width: 100%;
+    background-color:#fff;
 
+  }
+</style>
 
 <div class="container">
   <div class="row">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div class="vh-100 d-flex justify-content-center align-items-center">
+     
+      
           <div class="col-md-12">
-              
-              <div class="card  bg-white shadow p-5">
-                  <div class="mb-4 text-center">
-                    
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    
-                          
-                  </div>
-                  <div class="text-center">
+            
+                  <div class="text-center graficas">
                   
 
                     {{ encuesta|safe }}
+                     
+                  </div>
 
-              
-                    
+                  <div class="text-center graficas">
+                  
 
-                    {{ presupuesto|safe }}
-                
+                    {{ orden|safe }}
+                     
+                  </div>
+
+                  <div class="text-center graficas">
+                  
+
+                    {{ constructoras|safe }}
                      
                   </div>
 
@@ -48,13 +45,8 @@
               </div>
           </div>
       </div>
-  </div>
-</div>
+  
 <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                  
 
 {%endblock%}

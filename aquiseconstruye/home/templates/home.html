@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %}
+{% load humanize %}
 {% block stylesheets %}
 <style>
   .section {
@@ -12,8 +13,8 @@
   color:#e1ad02;
   text-align: center;
   z-index: 1;
-  font-family: 'if';
-  src: url('fonts/if.ttf') format('truetype');
+  font-family: 'Covered By Your Grace',cursive;
+
 }
     a:hover {
   color:#e1ad02;
@@ -24,13 +25,31 @@ a {
   text-decoration: none;
 }
 
+  /* Estilos para los checkboxes redondos del control de capas */
+  .leaflet-control-layers-overlays label {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #ffffff; /* Cambia el color de fondo si lo deseas */
+    border: 2px solid #000000; /* Cambia el color del borde si lo deseas */
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+
+  .leaflet-control-layers-selector {
+    display: none; /* Oculta el checkbox predeterminado */
+  }
+
+  .leaflet-control-layers-selector:checked + span:before {
+    content: "\2714"; /* Símbolo de marca de verificación para el checkbox seleccionado */
+    font-size: 15px;
+    padding-right: 5px;
+  }
+
+
 @media (max-width: 767px) {
-        #map-container {
-            width: 100%; /* Ajusta el ancho del contenedor del mapa para dispositivos móviles */
-            height: 500px; /* Ajusta la altura del contenedor del mapa para dispositivos móviles */
-            margin: 0; /* Elimina los márgenes del contenedor del mapa */
-            padding: 0;
-          }
+    
     }
     
         .logo-container {
@@ -40,11 +59,23 @@ a {
         .content-logo{
           background-color: #000000; 
           margin-top: 10%; 
-          margin-bottom: 10%; 
+          margin-bottom: 5%; 
           border-radius: 20px;
           height: 70%;
         }
 
+        .intro{
+          color:#fff;
+          font-size: 24px;
+        }
+        .cono{
+          width: 50px;
+          height: 50px;
+        }
+        .intro2{
+          color:#fff;
+          font-size: 14px;
+        }
 
   @media screen and (max-width: 768px) {
       
@@ -59,15 +90,39 @@ a {
           border-radius: 20px;
           height: 100%;
         }
+        .intro{
+          color:#fff;
+          font-size: 12px;
+        }
+        .cono{
+          width: 30px;
+          height: 30px;
+        }
+        .map{
+        height: 900px;
+       }
+        }
+
+        .cono2{
+          width: 15px;
+          height: 15px;
         }
         @media (min-width: 768px) {
-        #map-container {
-            width: 100%; /* Ajusta el ancho del contenedor del mapa para dispositivos de escritorio */
-            height: 900px; /* Ajusta la altura del contenedor del mapa para dispositivos de escritorio */
-            margin: 0; /* Elimina los márgenes del contenedor del mapa */
-            padding: 0;
-          }
+       .map{
+        height: 700px;
+       }
     }
+  
+    /* Agregar estilos adicionales para las capas en el control */
+    .custom-layer-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    .custom-layer-label {
+      font-size: 14px;
+    }
+ 
 
 </style>
 {% endblock%}
@@ -83,8 +138,153 @@ a {
       <br>
       <div class="col-lg-12 text-center content-logo">
         <img class="logo-container" src="{% static "LogoWeb.png" %}" alt='aqui se construye'>
+        {% for intros in intro %}
+              <br>
+              
+              <p class="intro"><img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ intros.intro }} <img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+              <br>
+        {%endfor%}
       </div>
-      <br>
+      
+      <div id="map" class="map"></div>
+      <div id="layerControl" class="leaflet-control-layers leaflet-control"></div>
+
+
+      <script src="{% static 'leaflet/leaflet.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'leaflet/leaflet.css' %}" />
+
+      <script>
+        var map = L.map('map').setView([0, 0], 2);
+      
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+      
+        // Definir los estilos para los iconos personalizados
+        var iconDict = {
+          1: '{% static "icon/carretera.png" %}',       // Icono para tipo de obra 1
+          2: '{% static "icon/alcantarilla.png" %}',    // Icono para tipo de obra 2
+          3: '{% static "icon/tuberia.png" %}',         // Icono para tipo de obra 3
+          4: '{% static "icon/parque.png" %}',          // Icono para tipo de obra 4
+          5: '{% static "icon/competidor.png" %}',      // Icono para tipo de obra 5
+          6: '{% static "icon/agua.png" %}',            // Icono para tipo de obra 6
+          7: '{% static "icon/edificio.png" %}',        // Icono para tipo de obra 7
+        };
+      
+        var semDict = {
+          1: '{% static "icon/rojo.png" %}',       // Icono para tipo de obra 1
+          2: '{% static "icon/amarillo.png" %}',    // Icono para tipo de obra 2
+          3: '{% static "icon/verde.png" %}',         // Icono para tipo de obra 3
+      
+        };
+
+
+
+        var layerGroups = {
+        'Rojo': L.layerGroup(),
+        'Amarillo': L.layerGroup(),
+        'Verde': L.layerGroup(),
+      };
+        // Arreglo para almacenar las coordenadas de los marcadores
+        var markerCoords = [];
+        
+          
+      
+        function createCustomIcon(iconUrl, shadowUrl) {
+          var customIcon = L.icon({
+            iconUrl: iconUrl,
+            iconSize: [20, 20],
+            iconAnchor: [20, 18],
+            shadowUrl: shadowUrl, // Asignar la sombra personalizada al icono
+            shadowSize: [50, 60], // Tamaño de la sombra
+            shadowAnchor: [35, 30], // Anclaje de la sombra
+    });
+
+    return customIcon;
+  }
+ 
+
+        {% for work in works %}
+          var iconUrl = iconDict[{{ work.type_work }}];
+          var semUrl = semDict[{{ work.traffic_light }}]; // Asumiendo que tienes una propiedad llamada "traffic_light" en tu modelo Work que contiene el número para el semáforo
+
+          var customIcon = createCustomIcon(iconUrl, semUrl);
+
+
+          // Agrupar el marcador en la capa correspondiente según el semáforo
+            // Obtener el valor del semáforo como clave para la capa en layerGroups
+            var trafficLightKey = {{ work.traffic_light }};
+            var layerGroup = layerGroups[trafficLightKey];
+            if (!layerGroup) {
+              console.log("Creando nueva capa para el semáforo: " + trafficLightKey);
+              layerGroup = L.layerGroup();
+              layerGroups[trafficLightKey] = layerGroup;
+            }
+
+
+
+          
+            var imageMonedas = "{% static 'icon/monedas.png' %}";
+            var imageVerMas = "{% static 'vermas.png' %}";
+            var imageTagMonedas = "<img src='" + imageMonedas + "' width='60px' height='50px'>";
+            var imageTagPolitico = "<img src='https://i.ibb.co/fQNtDH5/poli.png' width='60px' height='50px'>";
+            var imageTagConstructora = "<img src='https://i.ibb.co/7GMTzDR/construction-crane-hand-drawn-tool.png' width='60px' height='50px'>";
+            var imageTagVerMas = "<img src='" + imageVerMas + "' width='60px' height='50px'>";
+            var obraURL = "{{ work.slug }}";
+
+            // Usar el código HTML dentro del bindPopup para agregar la imagen y los datos de la obra
+            var marker = L.marker([{{ work.latitude }}, {{ work.longitude }}], { icon: customIcon }).addTo(map)
+                .bindPopup("<div><center><b>{{ work.alias }}</b></center><br>"+imageTagMonedas+"${{ work.price|intcomma }}0<br>"+imageTagPolitico+"  Funcionarios: {{ work.official}}<br><br>"+imageTagConstructora+"Constructora: {{ work.constructor}}<br><br><a href='obra/" + obraURL + "'title='Ver más'>" + imageTagVerMas + "</a><div>");
+                  console.log("Valor de obraURL: " + obraURL);
+            marker.addTo(layerGroup);
+        {% endfor %}
+
+        // Coordenadas y nivel de zoom personalizados
+        var centerCoordinates = [25.542969619618308, -103.40690765484692];
+        var zoomLevel = 13;
+
+        // Establecer la vista del mapa con las coordenadas y nivel de zoom personalizados
+        map.setView(centerCoordinates, zoomLevel);
+
+        
+
+        // Seleccionar todas las capas por defecto
+        for (var key in layerGroups) {
+          map.addLayer(layerGroups[key]);
+        }
+
+      
+
+         // Crear el control L.control.layers y agregar las etiquetas personalizadas para las capas
+        var miControlLayers = L.control.layers(null, layerGroups, {
+          collapsed: false,
+          position: 'topright',
+        });
+      
+
+        // Agregar el control al mapa
+        miControlLayers.addTo(map);
+      </script>
+      <div class="col-lg-12 text-center content-logo">
+        {% for metodologics in metodologic %}
+              <br>
+              
+              <p class="intro2"><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ metodologics.metodologic }} <img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+              <br>
+        {%endfor%}
+      </div>
+      
+
+    
+    </div>
+    {%if request.user.is_authenticated%}
+    <a href="{%url 'obras'%}" class="btn btn-dark " style="color:#e1ad02;
+    text-align: center;
+    z-index: 1;
+    font-family: Covered By Your Grace', cursive;">Toda la lista</a>
+    {% endif %}
+
+    <br>
       <br>
       <div class="section" >
         {% for item in investigation %}
@@ -96,27 +296,9 @@ a {
               <p>Ver investigación <a href='{%url 'investigacion'%}' target="_blank"><img class="arow" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></p>
         {% endfor %}
       </div>
-      <br>
-      <br>
-      <br>
-      <div id="map-container">
-        {{ map_html|safe }}
-    </div>
-    
-    </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    {%if request.user.is_authenticated%}
-    <a href="{%url 'obras'%}" class="btn btn-dark " style="color:#e1ad02;
-    text-align: center;
-    z-index: 1;
-    font-family: 'if';
-    src: url('fonts/if.ttf') format('truetype');">Toda la lista</a>
-    {% endif %}
 </div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 
 {% endblock %}

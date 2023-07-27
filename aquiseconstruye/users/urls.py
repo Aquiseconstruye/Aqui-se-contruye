@@ -10,8 +10,8 @@ urlpatterns = [
     path('salir/', LogoutView.as_view(), name='logout'),
 	path('editar-perfil/', ProfileFormView.as_view(), name='profile_form'),
 	path('perfil/', ProfileView.as_view(), name='profile'),
-	path('follow/', views.follow, name='follow'),
-	path('unfollow/', views.unfollow, name='unfollow'),
+	path('follow/<int:id>/', views.follow, name='follow'),
+	path('unfollow/<int:id>/', views.unfollow, name='unfollow'),
 
 		
 ]

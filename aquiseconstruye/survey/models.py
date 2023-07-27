@@ -7,7 +7,7 @@ from work.models import Work
 
 SURVEY_CHOICES = ((1,'Afecta mi translado'),
                     (2,'Afecta mi patrimonio'),
-                    (3,'Afecta mis labores domesticos'),
+                    (3,'Afecta mis labores domésticas'),
                     (4,'Otro'))
 
 

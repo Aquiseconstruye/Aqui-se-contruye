@@ -61,12 +61,12 @@ class GraficasView(View):
         # Convertir los datos del QuerySet en un DataFrame de pandas
         df = pd.DataFrame.from_records(
             surveys.values(
-                "obra__name",
+                "obra__alias",
                 "survey",
             )
         ).rename(
             columns={
-                "obra__name": "obra",
+                "obra__alias": "obra",
                 "survey": "tipo_encuesta",
             }
         )
@@ -108,83 +108,121 @@ class GraficasView(View):
 
         # Ajustes del layout de la gráfica
         fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            },
-            legend_title_text="Tipo de encuesta",
-        )
+           
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title='<b>Encuestas por obra</b>',
+            height=600,
+            barmode='stack',
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=1.1,
+                xanchor="center",
+                x=0.5
+            ))
+        
+        fig.update_xaxes(showticklabels=False, zeroline=False)
+    
 
-        encuesta = fig.to_html()
+        encuesta = fig.to_html(config={"displayModeBar": False})
 
 
-        df_precio = pd.DataFrame.from_records(
+        # Convertir los datos del QuerySet en un DataFrame de pandas para los órdenes de gobierno
+        df_ordenes = pd.DataFrame.from_records(
             surveys.values(
-                "obra__name",
-                "obra__price",
-                "obra__budget",
+                "obra__order_gob",
             )
         ).rename(
             columns={
-                "obra__name": 'Obra',
-                "obra__price": 'Precio total',
-                "obra__budget": 'Presupuesto asignado',
+                "obra__order_gob": 'Orden de gobierno',
             }
         )
 
-        # Calcular la diferencia entre el precio y el presupuesto
-        df_precio['Diferencia'] = df_precio['Presupuesto asignado'] - df_precio['Precio total']
+        # Contar la cantidad de obras por cada orden de gobierno
+        df_ordenes_grouped = df_ordenes.groupby('Orden de gobierno').size().reset_index(name='Cantidad de obras')
 
-        # Crear una figura con dos subplots, uno para el precio y otro para la diferencia
-        fig_presupuesto = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
+        # Calcular el porcentaje de obras para cada orden de gobierno
+        total_obras = len(df_ordenes)
+        df_ordenes_grouped['Porcentaje de obras'] = df_ordenes_grouped['Cantidad de obras'] / total_obras * 100
 
-        # Añadir el gráfico de precio al primer subplot
-        fig_presupuesto.add_trace(
-            go.Bar(
-                x=df_precio['Obra'],
-                y=df_precio['Precio total'],
-                name='Precio total',
-                marker_color='#FFBF00',
-            ),
-            row=1,
-            col=1,
+        # Creación de la gráfica de pastel para órdenes de gobierno
+        fig_ordenes = px.pie(
+            df_ordenes_grouped,
+            names='Orden de gobierno',
+            values='Porcentaje de obras',
+            title='Porcentaje de obras por Orden de gobierno',
+            labels={
+                'Orden de gobierno': 'Orden de gobierno',
+                'Porcentaje de obras': 'Porcentaje',
+            },
         )
-
-        # Añadir el gráfico de presupuesto al primer subplot
-        fig_presupuesto.add_trace(
-            go.Bar(
-                x=df_precio['Obra'],
-                y=df_precio['Presupuesto asignado'],
-                name='Presupuesto asignado',
-                marker_color='#1C1C1C',
-            ),
-            row=1,
-            col=1,
-        )
-
-        # Añadir el gráfico de diferencia al segundo subplot
-        fig_presupuesto.add_trace(
-            go.Bar(
-                x=df_precio['Obra'],
-                y=df_precio['Diferencia'],
-                name='Diferencia',
-                marker_color=df_precio['Diferencia'].apply(lambda x: 'red' if x < 0 else 'green'),
-            ),
-            row=2,
-            col=1,
-        )
-
-        # Actualizar el diseño de la figura
-        fig_presupuesto.update_layout(
-            title='Comparación de precio y presupuesto por obra',
-            xaxis_title='Obra',
-            yaxis_title='Cantidad',
+        # Ajustes del layout de la gráfica
+        fig_ordenes.update_layout(
+            
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title='<b>Orden de gobierno</b>',
             height=600,
-            barmode='group',
-        )
+            barmode='stack',
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=1.1,
+                xanchor="center",
+                x=0.5
+            ))
 
-        presupuesto = fig_presupuesto.to_html()
+        orden = fig_ordenes.to_html(config={"displayModeBar": False})
+
+
+        df_constructoras = pd.DataFrame.from_records(
+            surveys.values(
+            "obra__alias",
+                "obra__constructor",
+            )
+        ).rename(
+            columns={
+                "obra__alias": "obra",
+                "obra__constructor": 'constructora',
+            }
+        )
+        
+
+        # Contar cuántas veces aparece cada constructora en el DataFrame
+        constructoras_count = df_constructoras['constructora'].value_counts().reset_index()
+        constructoras_count.columns = ['Constructora', 'Cantidad de obras']
+
+        # Agrupar por constructora y sumar la cantidad de obras
+        constructoras_sum_obras = constructoras_count.groupby('Constructora')['Cantidad de obras'].sum().reset_index()
+
+        # Crear la gráfica de barras
+        fig_constructoras = px.bar(
+            constructoras_sum_obras,
+            x='Constructora',
+            y='Cantidad de obras',
+            title='Cantidad de obras por constructora',
+            labels={
+                'Constructora': 'Constructora',
+                'Cantidad de obras': 'Cantidad de obras',
+            },
+        )
+        # Ajustes del layout de la gráfica
+        fig_constructoras.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title='<b>Constructoras</b>',
+            height=600,
+            barmode='stack',
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=1.1,
+                xanchor="center",
+                x=0.5
+            ))
+
+        constructoras = fig_constructoras.to_html(config={"displayModeBar": False})
 
 
 

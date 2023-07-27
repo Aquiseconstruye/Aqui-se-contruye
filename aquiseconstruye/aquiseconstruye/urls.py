@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from work.views import ObrasView,ObraDetailView#, RegidorView
+from work.views import ObrasView,ObraDetailView, download_files
+from django.urls import re_path
+from django.views.static import serve
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +32,8 @@ urlpatterns = [
     path('', include('investigation.urls')),
     path('obras/',ObrasView.as_view(), name='obras'),
     path('obra/<str:slug>/',ObraDetailView.as_view(), name='obra'),
+    path('obra/<slug:slug>/download/', download_files, name='download_files'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     #path('obra/<str:slug>/',WorkDetailView.as_view(), name='obra'),
     #url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]

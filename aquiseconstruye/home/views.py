@@ -22,6 +22,7 @@ import base64
 from plotly.offline import plot
 import datetime
 from investigation.models import *
+from team.models import *
 
 
 class HomeView(ListView):
@@ -34,72 +35,17 @@ class HomeView(ListView):
     
 
     def get_context_data(self, **kwargs):
-        work_obj = Work.objects.all()
+        works = Work.objects.all()  # Cambiar 'ubicaciones' por 'works'
         investigation = Investigation.objects.all()
+        intro = IntroAquiSeConstruye.objects.all()
+        metodologic = Metodologic.objects.all()
 
-        mapbox_access_token = settings.MAPBOX_ACCESS_TOKEN
-
-        fig = go.Figure()
-
-        for work in work_obj:
-            color = ""
-            if work.traffic_light == 1:
-                color = "red"
-            elif work.traffic_light == 3:
-                color = "green"
-            elif work.traffic_light == 2:
-                color = "yellow"
-            else:
-                color = "blue"
-            
-            symbol=""
-            if work.type_work == 1:
-                symbol = "park"
-            elif work.type_work == 2:
-                symbol = "harbor"
-            elif work.type_work == 3:
-                symbol = "bridge"
-            elif work.type_work == 4:
-                symbol = "bus"
-            elif work.type_work == 5:
-                symbol = "monument"
-            elif work.type_work == 6:
-                symbol = "wetland"
-            
-            
-
-            fig.add_trace(go.Scattermapbox(
-                lat=[work.latitude],
-                lon=[work.longitude],
-                mode='markers',
-                marker=go.scattermapbox.Marker(
-                    size=10,
-                    color=color,  # Asigna el color correspondiente según el campo "traffic_light"
-                    symbol= symbol
-                ),
-                text=[work.name],
-            ))
-
-        fig.update_layout(
-            hovermode='closest',
-            margin=dict(t=30, l=0, r=0, b=0),
-            mapbox=dict(
-                accesstoken=mapbox_access_token,
-                bearing=0,
-                center=go.layout.mapbox.Center(
-                    lat=25.54389,
-                    lon=-103.41898
-                ),
-                pitch=0,
-                zoom=10
-            ),
-        )
-
-        # Genera el código HTML del mapa
-        map_html = plot(fig, output_type='div')
 
         context = {
-            'map_html': map_html, 'investigation':investigation
+            'investigation': investigation,
+            'intro': intro,
+            'metodologic': metodologic,
+            'works': works,  # Cambiar 'ubicaciones' por 'works'
         }
 
         return context
