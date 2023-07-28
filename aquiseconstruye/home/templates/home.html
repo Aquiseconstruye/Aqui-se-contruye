@@ -47,6 +47,11 @@ a {
     padding-right: 5px;
   }
 
+  <style>
+  .leaflet-control-layers-overlays label {
+    display: none;
+  }
+
 
 @media (max-width: 767px) {
     
@@ -99,7 +104,7 @@ a {
           height: 30px;
         }
         .map{
-        height: 900px;
+        height: 700px;
        }
         }
 
@@ -109,7 +114,7 @@ a {
         }
         @media (min-width: 768px) {
        .map{
-        height: 700px;
+        height: 800px;
        }
     }
   
@@ -140,8 +145,7 @@ a {
         <img class="logo-container" src="{% static "LogoWeb.png" %}" alt='aqui se construye'>
         {% for intros in intro %}
               <br>
-              
-              <p class="intro"><img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ intros.intro }} <img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+              <p class="intro"><img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ intros.title }}<br>{{ intros.intro }} <img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
               <br>
         {%endfor%}
       </div>
@@ -169,6 +173,16 @@ a {
           5: '{% static "icon/competidor.png" %}',      // Icono para tipo de obra 5
           6: '{% static "icon/agua.png" %}',            // Icono para tipo de obra 6
           7: '{% static "icon/edificio.png" %}',        // Icono para tipo de obra 7
+          8: '{% static "icon/police.png" %}',
+          9: '{% static "icon/hospital.png" %}',
+          10: '{% static "icon/cultura.png" %}',
+          11: '{% static "icon/escuela.png" %}',
+          12: '{% static "icon/familia.png" %}',
+          13: '{% static "icon/industria.png" %}',
+          14: '{% static "icon/femenino.png" %}',
+          15: '{% static "icon/masculino.png" %}',
+          16: '{% static "icon/animales.png" %}',
+          11: '{% static "icon/deporte.png" %}',
         };
       
         var semDict = {
@@ -181,9 +195,9 @@ a {
 
 
         var layerGroups = {
-        'Rojo': L.layerGroup(),
-        'Amarillo': L.layerGroup(),
-        'Verde': L.layerGroup(),
+        'Semáforo rojo': L.layerGroup(),
+        'Semáforo amarillo': L.layerGroup(),
+        'Semáforo verde': L.layerGroup(),
       };
         // Arreglo para almacenar las coordenadas de los marcadores
         var markerCoords = [];
@@ -213,7 +227,7 @@ a {
 
           // Agrupar el marcador en la capa correspondiente según el semáforo
             // Obtener el valor del semáforo como clave para la capa en layerGroups
-            var trafficLightKey = {{ work.traffic_light }};
+            var trafficLightKey = '{{ work.traffic_light_filter }}';
             var layerGroup = layerGroups[trafficLightKey];
             if (!layerGroup) {
               console.log("Creando nueva capa para el semáforo: " + trafficLightKey);
@@ -235,7 +249,7 @@ a {
             // Usar el código HTML dentro del bindPopup para agregar la imagen y los datos de la obra
             var marker = L.marker([{{ work.latitude }}, {{ work.longitude }}], { icon: customIcon }).addTo(map)
                 .bindPopup("<div><center><b>{{ work.alias }}</b></center><br>"+imageTagMonedas+"${{ work.price|intcomma }}0<br>"+imageTagPolitico+"  Funcionarios: {{ work.official}}<br><br>"+imageTagConstructora+"Constructora: {{ work.constructor}}<br><br><a href='obra/" + obraURL + "'title='Ver más'>" + imageTagVerMas + "</a><div>");
-                  console.log("Valor de obraURL: " + obraURL);
+                
             marker.addTo(layerGroup);
         {% endfor %}
 
@@ -255,15 +269,32 @@ a {
 
       
 
-         // Crear el control L.control.layers y agregar las etiquetas personalizadas para las capas
         var miControlLayers = L.control.layers(null, layerGroups, {
           collapsed: false,
           position: 'topright',
         });
-      
 
         // Agregar el control al mapa
         miControlLayers.addTo(map);
+         
+        
+        // // Personalizar la presentación de las capas en el control de capas mediante CSS
+        // var controlContainer = document.querySelector('.leaflet-control-layers');
+        // if (controlContainer) {
+        //   var controlLabels = controlContainer.querySelectorAll('.leaflet-control-layers-list span');
+        //   controlLabels.forEach(function(label) {
+        //     // Verificar si el texto de la etiqueta contiene solo números (1, 2, 3, etc.)
+        //     if (/^\d+$/.test(label.textContent.trim())) {
+        //       // Ocultar la etiqueta de número
+        //       label.style.display = 'none';
+        //     }
+        //   });
+        // }
+
+
+
+
+
       </script>
       <div class="col-lg-12 text-center content-logo">
         {% for metodologics in metodologic %}

@@ -3,8 +3,8 @@ from .models import *
 # Register your models here.
 
 class WorkAdmin(admin.ModelAdmin):
-    list_display = ('name', 'traffic_light', 'official',)
-    ordering = ["created_at"]
+    list_display = ('alias', 'traffic_light', 'official',)
+    ordering = ["-created_at"]
 
 
 class TrafficLightAdmin(admin.ModelAdmin):

@@ -20,7 +20,22 @@ WORK_CHOICES = ((1,'Carretera'),
                     (4,'Parque'),
                     (5,'Competidor'),
                     (6,'Agua'),
-                    (7,'Edificio'),)
+                    (7,'Edificio'),
+                    (8,'Policía'),
+                    (9,'Hospital'),
+                    (10,'Cultura'),
+                    (11,'Escuela'),
+                    (12,'Familia'),
+                    (13,'Industria'),
+                    (14,'Femenino'),
+                    (15,'Masculino'),
+                    (16,'Animales'),
+                    (17,'Deporte'),)
+
+
+TRAFFIC_FILTER_CHOICES = (('Semáforo rojo','Rojo'),
+                    ('Semáforo amarillo','Amarillo'),
+                    ('Semáforo verde','Verde'))
                     
 
 class Work(models.Model):
@@ -62,6 +77,7 @@ class Work(models.Model):
     term = models.DateTimeField(blank=True, null=True, verbose_name=('plazo'))
     conclution = models.DateTimeField(blank=True, null=True, verbose_name=('dia que se termino'))
     traffic_light = models.IntegerField(default=2, choices=TRAFFIC_LIGHT_CHOICES, verbose_name=('semaforo'))
+    traffic_light_filter = models.CharField(max_length=20, blank=True, null=True, choices=TRAFFIC_FILTER_CHOICES, verbose_name=('semaforo filtro'))
     type_work = models.IntegerField(default=1, choices=WORK_CHOICES, verbose_name=('Tipo de obra'))
     img_traffic_light = models.ForeignKey(TrafficLight, related_name="semaforo", blank=True, null=True, on_delete=models.CASCADE)
     official = models.CharField(max_length=200,blank=True, null=True, verbose_name=('funcionario'))
