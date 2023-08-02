@@ -81,7 +81,10 @@
       <div class="slides">
         <img class="gallery-image" src='{{obra.image.url}}'>
       </div>
-    {%endif%} 
+      {% if obra.credits_image%}
+            <p style="color: #ffffff; background-color: #000 ;font-size:15px">{{obra.credits_image}} <a href="{{obra.link }}" style="color: #e1ad02;">{{obra.link_image}}</a></p>
+        {%endif%}
+    {%endif%}
     
     {% if obra.image1%}
       <div class="slides">

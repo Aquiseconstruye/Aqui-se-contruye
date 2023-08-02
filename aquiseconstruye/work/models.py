@@ -68,6 +68,8 @@ class Work(models.Model):
     image18 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
     image19 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
     image20 = models.ImageField(upload_to='galery/%Y-%m-%d/', blank=True, null=True, verbose_name=('galeria'))
+    credits_image = models.CharField(max_length=300,null=True, blank=True, verbose_name=('Creditos de las imagenes'))
+    link_image = models.URLField(null=True, blank=True,verbose_name="Link de los creditos")
     price = models.FloatField(blank=True, null=True, verbose_name=('precio'))
     money_used = models.FloatField(blank=True, null=True, verbose_name=('Dinero utilizado'))
     budget = models.FloatField(blank=True, null=True, verbose_name=('presupuesto'))
