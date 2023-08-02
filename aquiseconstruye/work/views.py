@@ -94,6 +94,7 @@ class ObraDetailView(DetailView):
 
         # Obtener información de fechas
         today = date.today()
+        completion_date = obra.term.date() if obra.term else None
         now = timezone.now().date()
         start_date = obra.start_of_work.date() if obra.start_of_work else obra.created_at.date()
         completion_date = obra.term.date() if obra.term else None
@@ -118,19 +119,27 @@ class ObraDetailView(DetailView):
         porcentaje_completado = (days_passed / duration) * 100 if duration else 0
 
         # Calcular el color de la barra de progreso
-        if obra.term:
-            if dias_restantes < 0:
-                color = 'gray'
-            elif dias_restantes < 20:
+        if obra.term and conclution_date:
+            total_days = (completion_date - start_date).days
+            completed_percentage = (days_passed / total_days) * 100
+
+            if completed_percentage >= 95:
                 color = 'red'
-            elif dias_restantes < 50:
+            elif completed_percentage >= 75:
+                color = 'yellow'
+            else:
+                color = 'green'
+        elif obra.term and dias_restantes is not None:
+            if dias_restantes <= -30:
+                color = 'red'
+            elif dias_restantes <= -20:
                 color = 'yellow'
             else:
                 color = 'green'
         else:
-            if days_passed < 40:
+            if days_passed < 10:
                 color = 'green'
-            elif days_passed < 70:
+            elif days_passed < 20:
                 color = 'yellow'
             else:
                 color = 'red'
@@ -143,10 +152,11 @@ class ObraDetailView(DetailView):
 
 
 
-        print(dias_restantes)
-        print(days_passed)
-        print(completion_date-start_date)
-        print(color)
+        print("dias_restantes",dias_restantes)
+        print("days_passed",days_passed)
+        print("completion_date",completion_date )
+        print("completion_date-start_date",completion_date-start_date)
+        print("color",color)
 
         # Define los datos de la gráfica
         if dias_restantes is not None:
