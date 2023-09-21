@@ -36,7 +36,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         works = Work.objects.all()  # Cambiar 'ubicaciones' por 'works'
-        investigation = Investigation.objects.all()
+        investigation = InvestigationHome.objects.all()
         intro = IntroAquiSeConstruye.objects.all()
         metodologic = Metodologic.objects.all()
 

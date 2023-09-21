@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from work.views import ObrasView,ObraDetailView, download_files
+from investigation.views import InvestigationView,InvestigationDetailView
 from django.urls import re_path
 from django.views.static import serve
 
@@ -33,6 +34,8 @@ urlpatterns = [
     path('obras/',ObrasView.as_view(), name='obras'),
     path('obra/<str:slug>/',ObraDetailView.as_view(), name='obra'),
     path('obra/<slug:slug>/download/', download_files, name='download_files'),
+    path('investigaciones', InvestigationView.as_view(), name='investigaciones'),
+    path('investigacion/<str:slug>/', InvestigationDetailView.as_view(), name='investigacion_detalle'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     #path('obra/<str:slug>/',WorkDetailView.as_view(), name='obra'),
     #url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),

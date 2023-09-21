@@ -1,0 +1,120 @@
+<style>
+
+
+    .card
+    {
+      background-color: #fafafa;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      margin-left: 5%;
+      margin-right: 5%;
+      margin-top: 5%;
+      font-family: "Rubik", sans-serif;
+      
+    }
+    
+    .card h3{
+      font-family: "Rubik", sans-serif;
+      font-size: 20px ;
+    }
+    
+    .card p{
+      text-align: justify;
+      color: #606060;
+      font-weight: light;
+      text-align: justify;
+      font-family: "Rubik", sans-serif;
+    }
+    
+    /* CARDS CONTENT SECTION */
+    #containText
+    {
+      position: absolute;
+      width: 76%;
+      left: 250px;
+      top: 30px;
+      
+    }
+    
+    #containText h3{
+        font-size: 40px;
+    }
+    
+    #containText p
+    {
+      position: absolute;
+      top: 50px;
+      font-size: 25px;
+      color: #202020;
+    }
+    
+    .face
+    {
+      position: relative;
+      height: 200px;
+      width: 200px;
+      top: 10px;
+      left: 10px;
+    }
+    
+    .card-image{
+      width: 100%;
+        height: 300px;
+       
+    }
+    
+    
+    .extra
+    {
+      position: relative;
+      width: 90%;
+      top: -80px;
+      margin: auto;
+      color: #606060;
+      font-weight: light;
+      text-align: justify;
+      left: 200px;
+    
+    }
+    
+    .arow{
+        position: relative;
+        width: 10% ;
+        top: -20%;
+        left: 70%;
+    }
+    
+    @media (max-width: 425px){
+      .card-image{
+        height: 200px;
+        width: 100%;
+    }
+        }
+    
+    </style>
+    
+    
+    <div class="col">
+    <a href='{% url 'investigacion_detalle' slug=item.slug %}' style="color: black !important;">
+      <div class="card" style='background-color:#fbfbfb;box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);margin-bottom:20%;'>
+          <div style="width:100%">
+            {% if item.image%}
+            <img  class="card-image" src='{{item.image.url}}' class="rounded">
+            {%else%}
+            <img  class="card-image" src='https://i.ibb.co/tmytdby/35557.jpg' class="rounded">
+            {%endif%}
+              
+          </div>
+          
+          <div style="height:200px; padding:0px 10px;" class="text-center ">
+              <br>
+              <h3>{{item.title|truncatechars:50 }}</h3>
+              <p>{{item.introduccion|safe}}</p>
+              <br>
+              <br>
+          </div>
+      </div>
+    </a>
+    </div>

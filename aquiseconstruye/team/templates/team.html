@@ -24,7 +24,7 @@ article {
 	font-family: 'Covered By Your Grace', cursive;
 	text-align: center;
 	letter-spacing: 10px;
-    font-size:15rem;
+    font-size:7rem;
     
 }
 .h2-divider {
@@ -60,6 +60,12 @@ section p {
 	background-size: cover;
 	width: 100%;
 }
+.placeHolder_img1 {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+}
 
 
 /*--------------------------
@@ -82,6 +88,11 @@ section p {
 	}
 	.placeHolder_img {
 		height: 320px;
+		margin: 0 0 50px 0;
+	}
+
+	.placeHolder_img1 {
+		height: 600px;
 		margin: 0 0 50px 0;
 	}
 
@@ -128,7 +139,7 @@ section p {
 	text-align: center;
 	letter-spacing: 10px;
     line-height: 113px;
-    font-size:15rem;
+    font-size:7rem;
 	}
 	.h1-divider {
 		width: 339px;
@@ -141,6 +152,9 @@ section p {
 	.placeHolder_img {
 		height: 344px;
 		margin: 0 0 40px 0;
+	}
+	.placeHolder_img1 {
+		height: 600px;
 	}
 
 }
@@ -165,6 +179,9 @@ section p {
 	.placeHolder_img {
 		height: 442px;
 	}
+	.placeHolder_img1 {
+		height: 600px;
+	}
 	
 }
 
@@ -183,6 +200,9 @@ section p {
 	}
 	.placeHolder_img {
 		height: 432px;
+	}
+	.placeHolder_img1 {
+		height: 600px;
 	}
 	
 }
@@ -215,12 +235,27 @@ section p {
 
 			
                 {% for item in team %}
+				<div class="row">
+				<div class="col">
                 {% if item.image %}
-                    <div class="placeHolder_img" style=" background-image: url('{{item.image.url}}');"></div>
+                    <div class="placeHolder_img1'" style=" background-image: url('{{item.image.url}}');"></div>
+                {% else %}
+                    <div class="placeHolder_img1" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png');"></div>
+                {% endif %}
+				</div>
+				<div class="col">
+				{% if item.image2 %}
+                    <div class="placeHolder_img1" style=" background-image: url('{{item.image2.url}}');"></div>
+                {% else %}
+                    <div class="placeHolder_img1" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png');"></div>
+                {% endif %}
+				</div>
+				{% if item.image3 %}
+                    <div class="placeHolder_img" style=" background-image: url('{{item.image3.url}}');"></div>
                 {% else %}
                     <div class="placeHolder_img" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png');"></div>
                 {% endif %}
-    
+				</div>
               {% endfor %}
                 
 

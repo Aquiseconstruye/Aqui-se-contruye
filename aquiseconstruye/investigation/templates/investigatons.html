@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{%block title%} <p>'Obra'</p> {%endblock%}
+
+{%block extrahead%}
+    <meta name="description" content=''/>
+    <meta name='keywords' content=''/>
+    <meta property="og:url"                content=" " />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="observatorio de regidurías" />
+    <meta charset="utf-8">
+{%endblock%}
+{%block stylesheets%}
+<style>
+  .barra{
+    margin-left:60%; 
+    font-family: "Rubik", sans-serif;
+  }
+  label{
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 18px;
+    color: #e1ad02;
+  }
+  .title {
+		font-family: 'Covered By Your Grace', cursive;
+	text-align: center;
+	letter-spacing: 10px;
+    font-size:7rem;
+    color: #e1ad02;
+	}
+  @media (max-width: 425px){
+    .barra{
+    margin-left:0%; 
+    font-family: "Rubik", sans-serif;
+    
+  }
+  label{
+   
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 18px;
+    color: #e1ad02;
+  }
+  .title {
+		font-family: 'Covered By Your Grace', cursive;
+	text-align: center;
+	letter-spacing: 10px;
+    font-size:2rem;
+    color: #e1ad02;
+	}
+    }
+</style>
+{%endblock stylesheets%}
+{% block content %}
+
+<div class="col-12 d-flex flex-wrap align-items-stretch justify-content-center">
+    {% for item in investigations %}
+        <div class="col-sm-6 col-md-4 d-flex align-items-stretch">
+            {% include 'card_inv.html' %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

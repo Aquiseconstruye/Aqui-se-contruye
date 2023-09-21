@@ -4,6 +4,9 @@ from django.db import models
 class Whoweare(models.Model):
     who_we_are = models.TextField(blank=True, null=True, verbose_name=('quienes somos'))
     image = models.ImageField(upload_to='inv', blank=True, null=True, verbose_name=('galeria'))
+    image2 = models.ImageField(upload_to='inv', blank=True, null=True, verbose_name=('galeria'))
+    image3 = models.ImageField(upload_to='inv', blank=True, null=True, verbose_name=('galeria'))
+
 
 class IntroAquiSeConstruye(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True, verbose_name=('quienes somos'))

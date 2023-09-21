@@ -312,100 +312,145 @@ h3 {
 @media only screen and (min-width: 1662px) {
   /* 1662px */
 }
+
+
+
+
+
+ .site-wrap {
+	 max-width: 80%;
+	 margin: 100px auto;
+	 background: white;
+	 padding: 40px;
+	 text-align: justify;
+}
+ .align-left {
+	 float: left;
+	 margin-right: 20px;
+}
+ .align-right {
+	 float: right;
+	 margin-left: 20px;
+}
+ .slide-in {
+	 opacity: 0;
+	 transition: all 0.5s;
+}
+ .align-left.slide-in {
+	 transform: translateX(-30%) scale(0.95);
+}
+ .align-right.slide-in {
+	 transform: translateX(30%) scale(0.95);
+}
+ .slide-in.active {
+	 opacity: 1;
+	 transform: translateX(0%) scale(1);
+}
 </style>
 {%endblock %}
 
 
 {%block content%}
-<div class="container">
-<div id="fullpage" class="rfa-wrapper">
-    <div class="section">
-      <div class="layout-wrapper two-col-layout-1">
-        {% for item in investigation %}
-            {% if item.img %}
-                <div class="gfx" style=" background-image: url('{{item.img.url}}');"></div>
-            {% else %}
-                <div class="gfx" style="background-image: url('https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg');"></div>
-            {% endif %}
-            
-        {% endfor %}
-        
-        <div class="content-wrapper">
-            {% for item in investigation %}
-            <h2>{{ item.title }}</h2>
-            {% endfor %}
-            {% for item in investigation %}
-                    <p class="by">&ndash; 
-                {{ item.by }}</p>
-                    {% endfor %}
-          <div class="body-copy-wrapper">
-            {% for item in investigation %}
-                <p>{{ item.seccion1 }}</p>
-                {% endfor %}
-                {% for item in investigation %}
-                <p>{{ item.seccion2 }}</p>
-                {% endfor %}
-                {% for item in investigation %}
-                <p>{{ item.seccion3 }}</p>
-                {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="layout-wrapper three-col-layout-1">
-        <div class="content-grp">
-          
-          {% for item in investigation %}
-            {% if item.img1 %}
-                <div class="gfx sm-gfx" style=" background-image: url('{{item.img1.url}}');"></div>
-            {% else %}
-                <div class="gfx sm-gfx" style="background-image: url('https://i.ibb.co/tmytdby/35557.jpg');"></div>
-            {% endif %}
 
-          {% endfor %}
+<div class="site-wrap">
 
-          {% for item in investigation %}
-            {% if item.img2 %}
-                <div class="gfx lg-gfx" style=" background-image: url('{{item.img2.url}}');"></div>
-            {% else %}
-                <div class="gfx lg-gfx" style="background-image: url('https://i.ibb.co/TMxDG7B/6368975.jpg');"></div>
-            {% endif %}
-            
-        {% endfor %}
-          <aside class="pullquote-wrapper">
-            <div class="open-quote quote-gfx">
-              <svg xmlns="http://www.w3.org/2000/svg" width="34.68" height="22.91" viewBox="0 0 34.68 22.91">
-                                    <path id="" data-name="“" d="M4310.08 1607.22h7.71q3.015 0 3.37-3.5l2.66-16.87a2.1 2.1 0 0 0-.31-1.81 1.769 1.769 0 0 0-1.5-.72h-3.74a3.13 3.13 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.756 1.756 0 0 0 1.39.61zm18.92 0h7.71q3.015 0 3.38-3.5l2.65-16.87a2.128 2.128 0 0 0-.3-1.81 1.788 1.788 0 0 0-1.51-.72h-3.74a3.147 3.147 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.77 1.77 0 0 0 1.39.61z" transform="translate(-4308.16 -1584.31)" fill-rule="evenodd"/>
-                                  </svg>
-            </div>
-                {% for item in investigation %}
-                    <p class="quote">{{ item.appointment }}</p>
-                {% endfor %}
-                {% for item in investigation %}
+	<h2>{{ investigation.title }}</h2>
+         
                     <p class="by">&ndash; 
-                {{ item.name_appointment }}</p>
-                    {% endfor %}
-            <div class="close-quote quote-gfx">
-              <svg xmlns="http://www.w3.org/2000/svg" width="34.65" height="22.91" viewBox="0 0 34.65 22.91">
-                                    <path id="" data-name="”" d="M4310.04 1818.22h3.74a3.1 3.1 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.8 1.8 0 0 0-1.39-.6h-7.71q-2.9 0-3.38 3.49l-2.65 16.88a2.106 2.106 0 0 0 .3 1.8 1.783 1.783 0 0 0 1.51.73zm18.92 0h3.74a3.083 3.083 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.774 1.774 0 0 0-1.38-.6h-7.72q-2.9 0-3.37 3.49l-2.65 16.88a2.073 2.073 0 0 0 .3 1.8 1.752 1.752 0 0 0 1.5.73z" transform="translate(-4308.16 -1795.31)" fill-rule="evenodd"/>
-                                  </svg>
-            </div>
-          </aside>
-          <div class="body-copy-wrapper">
-            {% for item in investigation %}
-                <p>{{ item.seccion4 }}</p>
-                {% endfor %}
-                {% for item in investigation %}
-                <p>{{ item.seccion5 }}</p>
-                {% endfor %}
-          </div>
-        </div>
-      </div>
+                {{ investigation.by }}</p>
+
+                <div class="text-center">
+                  {% if investigation.img %}
+                  <img src="{{investigation.image.url}}"  style="width: 100%; height: 500px;">
+                  {% else %}
+                    <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 100%; height: 500px;">
+                  {% endif %}
+                </div>
+
+                <p>{{ investigation.introduccion|safe }}</p>
+
+	<p>{{ investigation.seccion1|safe }}</p>
+	
+
+
+  {% if investigation.img1 %}
+  <img src="{{investigation.image1.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
+  {% else %}
+    <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg" class="align-left slide-in" style="width: 400px; height: 400px;">
+  {% endif %}
+
+  <p>{{ investigation.seccion2|safe }}</p> 
+  
+
+  {% if investigation.img2 %}
+  <img src="{{investigation.image2.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
+  {% else %}
+    <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
+  {% endif %}
+
+
+	<p>{{ investigation.seccion3|safe }}</p>
+
+  {% if investigation.appointment %}
+  <aside class="pullquote-wrapper">
+    <div class="open-quote quote-gfx">
+      <svg xmlns="http://www.w3.org/2000/svg" width="34.68" height="22.91" viewBox="0 0 34.68 22.91">
+                            <path id="" data-name="“" d="M4310.08 1607.22h7.71q3.015 0 3.37-3.5l2.66-16.87a2.1 2.1 0 0 0-.31-1.81 1.769 1.769 0 0 0-1.5-.72h-3.74a3.13 3.13 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.756 1.756 0 0 0 1.39.61zm18.92 0h7.71q3.015 0 3.38-3.5l2.65-16.87a2.128 2.128 0 0 0-.3-1.81 1.788 1.788 0 0 0-1.51-.72h-3.74a3.147 3.147 0 0 0-2.17.66 5.989 5.989 0 0 0-1.32 2.11l-6.27 16.15a7.147 7.147 0 0 0-.36 1.93 2.078 2.078 0 0 0 .54 1.44 1.77 1.77 0 0 0 1.39.61z" transform="translate(-4308.16 -1584.31)" fill-rule="evenodd"/>
+                          </svg>
     </div>
-  </div>
+   
+            <p class="quote">{{ investigation.appointment|safe }}</p>
+    
+      
+            <p class="by">&ndash; 
+        {{ investigation.name_appointment|safe }}</p>
+       
+    <div class="close-quote quote-gfx">
+      <svg xmlns="http://www.w3.org/2000/svg" width="34.65" height="22.91" viewBox="0 0 34.65 22.91">
+                            <path id="" data-name="”" d="M4310.04 1818.22h3.74a3.1 3.1 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.8 1.8 0 0 0-1.39-.6h-7.71q-2.9 0-3.38 3.49l-2.65 16.88a2.106 2.106 0 0 0 .3 1.8 1.783 1.783 0 0 0 1.51.73zm18.92 0h3.74a3.083 3.083 0 0 0 2.17-.67 6.074 6.074 0 0 0 1.32-1.98l6.27-16.28a4.324 4.324 0 0 0 .36-1.92 2.1 2.1 0 0 0-.54-1.45 1.774 1.774 0 0 0-1.38-.6h-7.72q-2.9 0-3.37 3.49l-2.65 16.88a2.073 2.073 0 0 0 .3 1.8 1.752 1.752 0 0 0 1.5.73z" transform="translate(-4308.16 -1795.31)" fill-rule="evenodd"/>
+                          </svg>
+    </div>
+  </aside>
+  {% endif %}
+	
+  {% if investigation.img3 %}
+  <img src="{{investigation.image3.url}}" class="align-left slide-in" style="width: 300px; height: 500px;">
+  {% else %}
+    <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 300px; height: 500px;">
+  {% endif %}
+  <p>{{ investigation.seccion4|safe }}</p>
+	
+  {% if investigation.img4 %}
+  <img src="{{investigation.image4.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
+  {% else %}
+    <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
+  {% endif %}
+
+  <p>{{ investigation.seccion5|safe }}</p>
+
+  {% if investigation.img5 %}
+  <img src="{{investigation.image5.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
+  {% else %}
+    <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 400px; height: 400px;">
+  {% endif %}
+  <p>{{ investigation.seccion6|safe }}</p>
+  <br>
+  <br>
+    <div class="text-center">
+      {% if investigation.img6 %}
+      <img src="{{investigation.image6.url}}"  style="width: 90%; height: auto;">
+      {% else %}
+        <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 90%; height: auto;">
+      {% endif %}
+    </div>
+    {% if investigation.credit %}
+    <p>{{ investigation.credit|safe }}</p>
+    {% endif %}
 </div>
 <br>
 <br>
 <br>
 {%endblock%}
+
+
+

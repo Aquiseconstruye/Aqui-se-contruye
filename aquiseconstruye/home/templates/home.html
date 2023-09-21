@@ -7,6 +7,7 @@
    margin-bottom: 10%;
    border-radius: 20px;
   background-color: #fff;
+  padding: 30px;
   /*border: red 1px solid;*/
 }
 .btn-home{
@@ -85,8 +86,8 @@ a {
   @media screen and (max-width: 768px) {
       
             .logo-container {
-              width: 70%; 
-          height: 65%;
+              width: 50%; 
+              height: 45%;
         }
         .content-logo{
           background-color: #000000; 
@@ -104,7 +105,7 @@ a {
           height: 30px;
         }
         .map{
-        height: 700px;
+        height: 600px;
        }
         }
 
@@ -145,7 +146,7 @@ a {
         <img class="logo-container" src="{% static "LogoWeb.png" %}" alt='aqui se construye'>
         {% for intros in intro %}
               <br>
-              <p class="intro"><img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ intros.title }}<br>{{ intros.intro }} <img class="cono" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+              <p class="intro">{{ intros.title }}<br>{{ intros.intro }} </p>
               <br>
         {%endfor%}
       </div>
@@ -296,14 +297,23 @@ a {
 
 
       </script>
-      <div class="col-lg-12 text-center content-logo">
+      <div class="col-lg-12  content-logo " style="padding: 20px">
         {% for metodologics in metodologic %}
               <br>
               
-              <p class="intro2"><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'>{{ metodologics.metodologic }} <img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
-              <br>
-        {%endfor%}
-      </div>
+              <p class="intro2"><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'><span style="font-size: 1.5em;">Metodología</span></p>
+              <p class="intro2"><span style="font-weight: 400;">Verde: la obra se termin&oacute; en el plazo establecido en el contrato.</span></p>
+              <p class="intro2"><span style="font-weight: 400;">Amarillo: la obra se termin&oacute; despu&eacute;s del plazo establecido en el contrato.&nbsp;</span></p>
+              <p class="intro2"><span style="font-weight: 400;">Rojo: la obra excedi&oacute; el plazo y no se ha terminado.</span></p>
+              <p class="intro2"><br /><span style="font-weight: 400;">NOTA: para determinar la conclusi&oacute;n de una obra se toman en cuenta boletines de prensa de inauguraci&oacute;n o anuncios en redes sociales y se coteja con la observaci&oacute;n en campo por parte del equipo de </span><strong><em>Aqu&iacute; se construye</em></strong><span style="font-weight: 400;">. </span><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+                            <br>
+                                    {%endfor%}
+                                          </div>
+                                                
+                                                
+                                                    
+                                                        </div>
+                                                           
       
 
     
@@ -318,13 +328,13 @@ a {
     <br>
       <br>
       <div class="section" >
+
         {% for item in investigation %}
               <br>
               <h2>{{ item.title }}</h2>
               <br>
-              <p>{{ item.introduccion }}</p>
+              <p>{{ item.introduccion|safe }}</p>
               <br>
-              <p>Ver investigación <a href='{%url 'investigacion'%}' target="_blank"><img class="arow" width=60 height=70 src="https://i.ibb.co/D72djKd/sketched-double-arrow-pointing-left-and-right.png"></a></p>
         {% endfor %}
       </div>
 </div>
