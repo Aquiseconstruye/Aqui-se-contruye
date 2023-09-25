@@ -85,11 +85,20 @@
         top: -20%;
         left: 70%;
     }
+    .carf-text{
+      height:200px;
+       padding:0px 10px;
+    
+    }
     
     @media (max-width: 425px){
       .card-image{
         height: 200px;
         width: 100%;
+    }
+    .carf-text{
+      height:300px;
+       padding:0px 10px;
     }
         }
     
@@ -108,7 +117,7 @@
               
           </div>
           
-          <div style="height:200px; padding:0px 10px;" class="text-center ">
+          <div  class="text-center carf-text">
               <br>
               <h3>{{item.title|truncatechars:50 }}</h3>
               <p>{{item.introduccion|safe}}</p>
