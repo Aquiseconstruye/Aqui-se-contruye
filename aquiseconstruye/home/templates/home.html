@@ -54,14 +54,12 @@ a {
   }
 
 
-@media (max-width: 767px) {
+
     
-    }
-    
-        .logo-container {
-          width: 50%; 
-          height: 45%;
-        }
+    .logo-container {
+    width: 400px; 
+    height: 195px;
+}
         .content-logo{
           background-color: #000000; 
           margin-top: 10%; 
@@ -85,10 +83,10 @@ a {
 
   @media screen and (max-width: 768px) {
       
-            .logo-container {
-              width: 50%; 
-              height: 45%;
-        }
+    .logo-container {
+    width: 200px; 
+    height: 150px;
+}
         .content-logo{
           background-color: #000000; 
           margin-top: 10%; 
@@ -249,7 +247,8 @@ a {
 
             // Usar el código HTML dentro del bindPopup para agregar la imagen y los datos de la obra
             var marker = L.marker([{{ work.latitude }}, {{ work.longitude }}], { icon: customIcon }).addTo(map)
-                .bindPopup("<div><center><b>{{ work.alias }}</b></center><br>"+imageTagMonedas+"${{ work.price|intcomma }}0<br>"+imageTagPolitico+"  Funcionarios: {{ work.official}}<br><br>"+imageTagConstructora+"Constructora: {{ work.constructor}}<br><br><a href='obra/" + obraURL + "'title='Ver más'>" + imageTagVerMas + "</a><div>");
+                .bindPopup(
+                  "<div><center><b>{{ work.alias }}</b></center><br> <table width='300px'><tr><td>"+imageTagMonedas+"</td><td>${{ work.price|intcomma }}0</td></tr><tr><td>"+imageTagPolitico+"</td><td>Funcionarios: {{ work.official}}</td></tr><tr><td>"+imageTagConstructora+"</td><td>Constructora: {{ work.constructor}}</td></tr></table><a href='obra/" + obraURL + "'title='Ver más'>" + imageTagVerMas + "</a><div>");
                 
             marker.addTo(layerGroup);
         {% endfor %}
@@ -301,24 +300,21 @@ a {
         {% for metodologics in metodologic %}
               <br>
               
-              <p class="intro2"><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'><span style="font-size: 1.5em;">Metodología</span></p>
+              <p class="intro2"><span style="font-size: 1.5em;">Metodología</span></p>
               <p class="intro2"><span style="font-weight: 400;">Verde: la obra se termin&oacute; en el plazo establecido en el contrato.</span></p>
               <p class="intro2"><span style="font-weight: 400;">Amarillo: la obra se termin&oacute; despu&eacute;s del plazo establecido en el contrato.&nbsp;</span></p>
               <p class="intro2"><span style="font-weight: 400;">Rojo: la obra excedi&oacute; el plazo y no se ha terminado.</span></p>
-              <p class="intro2"><br /><span style="font-weight: 400;">NOTA: para determinar la conclusi&oacute;n de una obra se toman en cuenta boletines de prensa de inauguraci&oacute;n o anuncios en redes sociales y se coteja con la observaci&oacute;n en campo por parte del equipo de </span><strong><em>Aqu&iacute; se construye</em></strong><span style="font-weight: 400;">. </span><img class="cono2" src="https://i.ibb.co/BcBDBjS/image.png" alt='aqui se construye'> </p>
+              <p class="intro2"><br /><span style="font-weight: 400;">NOTA: para determinar la conclusi&oacute;n de una obra se toman en cuenta boletines de prensa de inauguraci&oacute;n o anuncios en redes sociales y se coteja con la observaci&oacute;n en campo por parte del equipo de </span><strong><em>Aqu&iacute; se construye</em></strong><span style="font-weight: 400;">. </span></p>
                             <br>
-                                    {%endfor%}
-                                          </div>
+         {%endfor%}
+         
+      </div>
                                                 
-                                                
+                                          
                                                     
-                                                        </div>
-                                                           
-      
+      </div>
 
-    
-    </div>
-    {%if request.user.is_authenticated%}
+      {%if request.user.is_authenticated%}
     <a href="{%url 'obras'%}" class="btn btn-dark " style="color:#e1ad02;
     text-align: center;
     z-index: 1;
@@ -327,7 +323,7 @@ a {
 
     <br>
       <br>
-      <div class="section" >
+      <div class="section col-lg-12 " style="padding: 20px" >
 
         {% for item in investigation %}
               <br>
@@ -336,7 +332,13 @@ a {
               <p>{{ item.introduccion|safe }}</p>
               <br>
         {% endfor %}
-      </div>
+      </div> 
+                                                           
+      
+
+    
+    </div>
+    
 </div>
 
 

@@ -360,20 +360,20 @@ h3 {
                 {{ investigation.by }}</p>
 
                 <div class="text-center">
-                  {% if investigation.img %}
-                  <img src="{{investigation.image.url}}"  style="width: 100%; height: 500px;">
+                  {% if investigation.image %}
+                  <img src="{{investigation.image.url}}"  style="width: 100%; height: auto; ">
                   {% else %}
                     <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 100%; height: 500px;">
                   {% endif %}
                 </div>
 
-                <p>{{ investigation.introduccion|safe }}</p>
+                
 
 	<p>{{ investigation.seccion1|safe }}</p>
 	
 
 
-  {% if investigation.img1 %}
+  {% if investigation.image1 %}
   <img src="{{investigation.image1.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
   {% else %}
     <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg" class="align-left slide-in" style="width: 400px; height: 400px;">
@@ -382,7 +382,7 @@ h3 {
   <p>{{ investigation.seccion2|safe }}</p> 
   
 
-  {% if investigation.img2 %}
+  {% if investigation.image2 %}
   <img src="{{investigation.image2.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
   {% else %}
     <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
@@ -413,14 +413,14 @@ h3 {
   </aside>
   {% endif %}
 	
-  {% if investigation.img3 %}
+  {% if investigation.image3 %}
   <img src="{{investigation.image3.url}}" class="align-left slide-in" style="width: 300px; height: 500px;">
   {% else %}
     <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 300px; height: 500px;">
   {% endif %}
   <p>{{ investigation.seccion4|safe }}</p>
 	
-  {% if investigation.img4 %}
+  {% if investigation.image4 %}
   <img src="{{investigation.image4.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
   {% else %}
     <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
@@ -428,7 +428,7 @@ h3 {
 
   <p>{{ investigation.seccion5|safe }}</p>
 
-  {% if investigation.img5 %}
+  {% if investigation.image5 %}
   <img src="{{investigation.image5.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
   {% else %}
     <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 400px; height: 400px;">
@@ -437,7 +437,7 @@ h3 {
   <br>
   <br>
     <div class="text-center">
-      {% if investigation.img6 %}
+      {% if investigation.image6 %}
       <img src="{{investigation.image6.url}}"  style="width: 90%; height: auto;">
       {% else %}
         <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 90%; height: auto;">

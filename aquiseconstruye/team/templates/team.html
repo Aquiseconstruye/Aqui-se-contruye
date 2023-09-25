@@ -219,37 +219,24 @@ section p {
 
 
 {%block content%}
-<main class="container" style="margin-top:10%; background-color: #fff;">
+<div class="container" style="margin-top:10%; background-color: #fff; padding:7%">
     <br>
     <br>
-	<section>
-		<h2 class="title"> Nosotos Somos</h2>
-		<div class="h2-divider"></div>
+	<div class="row">
+		<h2 class="title"> Nosotros Somos</h2>
+		<div class="h2-divider" style="width: 60%; margin-left: 20%;"></div>
 		
 
-		<article>
+		<div>
 		
 			{% for item in team %}
-                <p>{{ item.who_we_are }}</p>
+                <p>{{ item.who_we_are|safe }}</p>
             {% endfor %}
 
 			
                 {% for item in team %}
 				<div class="row">
-				<div class="col">
-                {% if item.image %}
-                    <div class="placeHolder_img1'" style=" background-image: url('{{item.image.url}}');"></div>
-                {% else %}
-                    <div class="placeHolder_img1" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png');"></div>
-                {% endif %}
-				</div>
-				<div class="col">
-				{% if item.image2 %}
-                    <div class="placeHolder_img1" style=" background-image: url('{{item.image2.url}}');"></div>
-                {% else %}
-                    <div class="placeHolder_img1" style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png');"></div>
-                {% endif %}
-				</div>
+			
 				{% if item.image3 %}
                     <div class="placeHolder_img" style=" background-image: url('{{item.image3.url}}');"></div>
                 {% else %}
@@ -260,8 +247,8 @@ section p {
                 
 
 	
-		</article>
-	</section>
-</main>
+			</div>
+		</div>
+</div>
 
 {%endblock%}
