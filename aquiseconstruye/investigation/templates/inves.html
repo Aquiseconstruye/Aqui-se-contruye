@@ -346,6 +346,23 @@ h3 {
 	 opacity: 1;
 	 transform: translateX(0%) scale(1);
 }
+.img-in{
+  width: 400px; 
+  height: 400px;
+}
+@media screen and (max-width: 768px) {
+  .site-wrap {
+    max-width: 100%;
+    margin: 100px auto;
+    background: white;
+    padding: 40px;
+    text-align: justify;
+  }
+  .img-in{
+  width: 350px; 
+  height: 350px;
+}
+}
 </style>
 {%endblock %}
 
@@ -362,8 +379,6 @@ h3 {
                 <div class="text-center">
                   {% if investigation.image %}
                   <img src="{{investigation.image.url}}"  style="width: 100%; height: auto; ">
-                  {% else %}
-                    <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 100%; height: 500px;">
                   {% endif %}
                 </div>
 
@@ -374,18 +389,14 @@ h3 {
 
 
   {% if investigation.image1 %}
-  <img src="{{investigation.image1.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
-  {% else %}
-    <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg" class="align-left slide-in" style="width: 400px; height: 400px;">
+  <img src="{{investigation.image1.url}}" class="align-left slide-in img-in" >
   {% endif %}
 
   <p>{{ investigation.seccion2|safe }}</p> 
   
 
   {% if investigation.image2 %}
-  <img src="{{investigation.image2.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
-  {% else %}
-    <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
+  <img src="{{investigation.image2.url}}" class="align-right slide-in img-in" >
   {% endif %}
 
 
@@ -415,23 +426,20 @@ h3 {
 	
   {% if investigation.image3 %}
   <img src="{{investigation.image3.url}}" class="align-left slide-in" style="width: 300px; height: 500px;">
-  {% else %}
-    <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 300px; height: 500px;">
+
   {% endif %}
   <p>{{ investigation.seccion4|safe }}</p>
 	
   {% if investigation.image4 %}
-  <img src="{{investigation.image4.url}}" class="align-right slide-in" style="width: 400px; height: 400px;">
-  {% else %}
-    <img src="https://i.ibb.co/TMxDG7B/6368975.jpg'" class="align-right slide-in" style="width: 400px; height: 400px;">
+  <img src="{{investigation.image4.url}}" class="align-right slide-in img-in">
+
   {% endif %}
 
   <p>{{ investigation.seccion5|safe }}</p>
 
   {% if investigation.image5 %}
-  <img src="{{investigation.image5.url}}" class="align-left slide-in" style="width: 400px; height: 400px;">
-  {% else %}
-    <img src="http://unsplash.it/200/500" class="align-left slide-in" style="width: 400px; height: 400px;">
+  <img src="{{investigation.image5.url}}" class="align-left slide-in img-in">
+
   {% endif %}
   <p>{{ investigation.seccion6|safe }}</p>
   <br>
@@ -439,8 +447,6 @@ h3 {
     <div class="text-center">
       {% if investigation.image6 %}
       <img src="{{investigation.image6.url}}"  style="width: 90%; height: auto;">
-      {% else %}
-        <img src="https://i.ibb.co/3kqxY9j/224312-P2-D0-L1-723.jpg"  style="width: 90%; height: auto;">
       {% endif %}
     </div>
     {% if investigation.credit %}

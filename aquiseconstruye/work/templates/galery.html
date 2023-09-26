@@ -81,9 +81,10 @@
       <div class="slides">
         <img class="gallery-image" src='{{obra.image.url}}'>
       </div>
-      {% if obra.credits_image%}
-            <p style="color: #ffffff; background-color: #000 ;font-size:15px">{{obra.credits_image}} <a href="{{obra.link }}" style="color: #e1ad02;">{{obra.link_image}}</a></p>
-        {%endif%}
+      {%else%}
+      <div class="slides">
+        <img  class="card-image" src='https://i.ibb.co/6PHyf5B/FOTO-NO-DISPONIBLE.jpg' class="rounded">
+      </div>
     {%endif%}
     
     {% if obra.image1%}
@@ -192,6 +193,9 @@
         <img  class="gallery-image" src='{{obra.image20.url}}'>
       </div>
     {%endif%}
+    {% if obra.credits_image%}
+      <p style="color: #ffffff; background-color: #000 ;font-size:15px">{{obra.credits_image}} <a href="{{obra.link }}" style="color: #e1ad02;">{{obra.link_image}}</a></p>
+     {%endif%}
 
 
   
